@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import * as actions from "../store/actions/actions";
 
-const SearchArea = () => {
+const SearchArea = (props) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [rating, setRating] = useState("All");
+  const [genre, setGenre] = useState("All");
+  const [releaseYear, setReleaseYear] = useState("All");
+  const [orderedBy, setOrderedBy] = useState("Latest");
+
   return (
     <div
       style={{
@@ -11,19 +19,43 @@ const SearchArea = () => {
       <div className="container">
         <div
           style={{
-            width: "100%",
+            width: "125%",
             display: "inline-block",
             marginRight: "10px",
           }}
         >
           <p style={{ float: "left !important" }}>Search Term:</p>
-          <input type="search" style={{ width: "100%" }} />
+          <input
+            type="search"
+            style={{ width: "80%" }}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div style={{ display: "inline-block" }}>
+            {" "}
+            <button
+              className="searchButton"
+              onClick={() =>
+                props.onSearch(
+                  {
+                    searchTerm,
+                    orderedBy,
+                    releaseYear,
+                    rating,
+                    genre,
+                  },
+                  1
+                )
+              }
+            >
+              Search
+            </button>
+          </div>
         </div>
         <div
           style={{ width: "23.5%", display: "inline-block", marginRight: "2%" }}
         >
           <p style={{ float: "left !important" }}>Rating:</p>
-          <select type="search">
+          <select type="search" onChange={(e) => setRating(e.target.value)}>
             <option value="0">All</option>
             <option value="9">9+</option>
             <option value="8">8+</option>
@@ -40,7 +72,7 @@ const SearchArea = () => {
           style={{ width: "23.5%", display: "inline-block", marginRight: "2%" }}
         >
           <p style={{ float: "left !important" }}>Genre:</p>
-          <select type="search">
+          <select type="search" onChange={(e) => setGenre(e.target.value)}>
             <option value="all">All</option>
             <option value="action">Action</option>
             <option value="adventure">Adventure</option>
@@ -74,7 +106,10 @@ const SearchArea = () => {
           style={{ width: "23.5%", display: "inline-block", marginRight: "2%" }}
         >
           <p style={{ float: "left !important" }}>Year:</p>
-          <select type="search">
+          <select
+            type="search"
+            onChange={(e) => setReleaseYear(e.target.value)}
+          >
             <option value="0">All</option>
             <option value="2020">2020</option>
             <option value="2019">2019</option>
@@ -90,7 +125,11 @@ const SearchArea = () => {
         </div>
         <div style={{ width: "23.5%", display: "inline-block" }}>
           <p style={{ float: "left !important" }}>Order By:</p>
-          <select type="search" name="order_by">
+          <select
+            type="search"
+            name="order_by"
+            onChange={(e) => setOrderedBy(e.target.value)}
+          >
             <option value="latest">Latest</option>
             <option value="oldest">Oldest</option>
             <option value="featured">Featured</option>
@@ -107,4 +146,18 @@ const SearchArea = () => {
     </div>
   );
 };
-export default SearchArea;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearch: (searchReqs, page_no) => {
+      dispatch(actions.getMovies(searchReqs, page_no));
+    },
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    // orders: state.order.orders,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);

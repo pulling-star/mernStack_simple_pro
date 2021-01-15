@@ -3,19 +3,21 @@ import express from "express";
 const router = express.Router();
 
 //  @route  Get api/movies
-//  @desc   Get all movies
+//  @desc   Get  movies
 //  @access Private
-router.get("/", async (req, res) => {
+router.get("/:page_no", async (req, res) => {
   try {
-    const movies = await Movie.find();
+    const movies = await Movie.find()
+      .sort({ year: -1 })
+      .skip(parseInt(req.params.page_no) - 1)
+      .limit(10);
 
-    res.json(movies.length);
+    res.json(movies);
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");
   }
 });
-
 //  @route  Get api/movies/title/:title
 //  @desc   Get all movies that have specific genre
 //  @access Private

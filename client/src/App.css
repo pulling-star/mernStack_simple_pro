@@ -29,7 +29,7 @@ body {
 
 a {
   color: var(--primary-color);
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 ul {
@@ -518,19 +518,22 @@ input:focus {
 
 .showSection {
   display: grid;
-  grid-template-columns: 250px 250px 250px 250px 250px;
-  grid-template-rows: auto;
+  grid-template-columns: 300px 300px 300px 300px 300px;
+  grid-template-rows: auto auto auto auto;
   justify-items: auto;
   align-items: center;
   padding: 20px 350px;
+  gap: 30px;
+  row-gap: 30px;
+
   /* background: #1d1d1d; */
 }
 a {
-  border: 5px solid white;
-  margin: 10px;
+  border: 9px solid white;
+  border-radius: 6px;
 }
 .showSection a:hover {
-  border: 5px solid #6ac045;
+  border: 9px solid #6ac045;
 }
 figure {
   overflow: hidden;
@@ -559,14 +562,16 @@ figcaption {
 }
 
 figure figcaption h4 {
-  font-size: 25px;
+  font-size: 40px;
   /* position: relative; */
   width: 100%;
   padding-left: 0 !important;
   padding-right: 0 !important;
+
   font-weight: bold;
   color: #fff;
   text-align: center;
+  font-weight: bold;
 }
 .FilmImage {
   display: block;
@@ -586,18 +591,18 @@ a:hover .FilmImage {
 
 .button-green {
   background: #6ac045;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   display: block;
   font-weight: bold;
   text-align: center;
   color: #fff;
-  top: 35px;
-  font-size: 16px;
+  top: 60px;
+  font-size: 20px;
   position: relative;
-  width: 130px;
-  padding: 7px 0;
+  width: 190px;
+  padding: 15px 0;
   margin-top: 20px;
   margin: 0 auto;
   -webkit-transition: all 300ms ease;
@@ -612,9 +617,10 @@ a:hover .button-green {
 }
 .icon-star {
   position: relative;
-  left: 90px;
+  left: 120px;
   width: 100%;
   color: #6ac045;
+  font-size: xx-large;
   -webkit-transition: all 300ms ease;
   -moz-transition: all 300ms ease;
   transition: all 300ms ease;
@@ -638,4 +644,63 @@ a:hover .button-green {
   font-size: x-large;
   left: 20px;
   top: 6px;
+}
+.searchButton {
+  background: #6ac045;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  display: block;
+  font-weight: bold;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+  position: relative;
+  width: 130px;
+  padding: 10px 0;
+  margin-left: 30px;
+}
+.pagination {
+  margin: 25px 0px;
+  padding: 0;
+  height: 100%;
+  width: 90%;
+  overflow: hidden;
+  justify-items: center;
+  font-size: 18px;
+  list-style-type: none;
+  display: inline-block;
+  text-align: center;
+}
+.pagination li {
+  display: inline-block;
+  margin: 2.5px;
+  padding: 0;
+
+  list-style-type: none;
+}
+ul.pagination li a {
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+
+  display: block;
+  text-decoration: none;
+  padding: 10px 13px !important;
+}
+ul.pagination li a:hover {
+  background: #5da93c;
+  border-color: #5da93c;
+  cursor: pointer;
+}
+ul.pagination li a.current {
+  color: #fff;
+  background: #5da93c;
+  border-color: #5da93c;
 }

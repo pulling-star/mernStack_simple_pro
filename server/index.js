@@ -2,11 +2,12 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import movies from "./routes/movies.js";
+import cors from "cors";
 const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-
+app.use(cors());
 const CONNECTIONURL =
   "mongodb+srv://ahmedreda:721996@cluster0.eymbv.mongodb.net/recommendation_database?retryWrites=true&w=majority";
 
