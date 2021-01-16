@@ -7,12 +7,14 @@ const router = express.Router();
 //  @access Private
 router.get("/:page_no", async (req, res) => {
   try {
+    const allMovies = await Movie.find();
+    const Mlength = allMovies.length;
     const movies = await Movie.find()
       .sort({ year: -1 })
-      .skip(parseInt(req.params.page_no) - 1)
-      .limit(10);
-
-    res.json(movies);
+      .skip((parseInt(req.params.page_no) - 1) * 20)
+      .limit(20);
+    console.log(movies);
+    res.json({ movies: movies, Mlength });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");

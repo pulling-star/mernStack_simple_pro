@@ -13,7 +13,6 @@ function ItemDetail() {
       <div className="ItemDetailView">
         <div>
           <img
-            itemprop="image"
             src="https://img.yts.mx/assets/images/movies/darkness_waits_2020/medium-cover.jpg"
             alt="Darkness Waits (2020) download"
           />

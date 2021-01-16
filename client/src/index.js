@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
 
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import MovieReducer from "./store/reducers/MoviesReducer";
 
 const composeEnhancers =

@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
-
+import SearchArea from "./components/SearchArea";
 import ShowSection from "./components/ShowSection";
 import ItemDetail from "./components/ItemDetail";
 import "./App.css";
@@ -18,10 +18,10 @@ const App = () => {
         <header>
           <Navbar />
         </header>
-
+        <SearchArea />
         <Switch>
           <Route path="/movies" component={ItemDetail} />
-          <Route path="/" component={ShowSection} />
+          <Route path="/browse-movies" component={ShowSection} />
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
       </Router>

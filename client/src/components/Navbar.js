@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import InputField from "./InputField";
 const Navbar = () => {
@@ -7,7 +7,7 @@ const Navbar = () => {
     quickQearch: "",
   };
   const [formData, setFormData] = useState(initialState);
-  const { quickQearch } = formData;
+  // const { quickQearch } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

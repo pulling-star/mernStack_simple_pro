@@ -531,9 +531,11 @@ input:focus {
 a {
   border: 9px solid white;
   border-radius: 6px;
+  display: inline-block;
 }
 .showSection a:hover {
   border: 9px solid #6ac045;
+  overflow: hidden;
 }
 figure {
   overflow: hidden;
@@ -550,7 +552,7 @@ figcaption {
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 2;
+  /* z-index: 2; */
   width: 100%;
   -webkit-transition: all 300ms;
   -moz-transition: all 300ms;
@@ -703,4 +705,25 @@ ul.pagination li a.current {
   color: #fff;
   background: #5da93c;
   border-color: #5da93c;
+}
+.movieTitle,
+.movieYear {
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  display: block;
+  transition: color 0.15s ease-in-out;
+  -moz-transition: color 0.15s ease-in-out;
+  -webkit-transition: color 0.15s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 0;
+}
+.movieYear {
+  color: #919191;
+}
+.movieTitle:hover {
+  border: 0 !important;
+  color: #919191;
 }

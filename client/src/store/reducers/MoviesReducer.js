@@ -1,12 +1,14 @@
 import { updateObject } from "../utility";
-import * as actions from "../actions/actions";
+
 import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   searchTerm: "",
   rating: "All",
   genre: "All",
-  releaseYear: "Latest",
+  releaseYear: "All",
+  orderedBy: "Latest",
   Movies: [],
+  Mlength: 0,
   error: false,
   page_no: 1,
 };
@@ -14,6 +16,14 @@ const initialState = {
 const setMov = (state, action) => {
   return updateObject(state, {
     Movies: action.Movies,
+    Mlength: action.Mlength,
+
+    searchTerm: action.searchTerm,
+    rating: action.rating,
+    genre: action.genre,
+    releaseYear: action.releaseYear,
+    orderedBy: action.orderedBy,
+    page_no: action.page_no,
     error: false,
   });
 };

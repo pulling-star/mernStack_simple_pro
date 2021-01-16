@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/actions";
+import { Link } from "react-router-dom";
 
 const SearchArea = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,24 +32,28 @@ const SearchArea = (props) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div style={{ display: "inline-block" }}>
-            {" "}
-            <button
-              className="searchButton"
-              onClick={() =>
-                props.onSearch(
-                  {
-                    searchTerm,
-                    orderedBy,
-                    releaseYear,
-                    rating,
-                    genre,
-                  },
-                  1
-                )
-              }
+            <Link
+              style={{ outLine: "none", border: 0 }}
+              to={"/browse-movies?page=" + 1}
             >
-              Search
-            </button>
+              <button
+                className="searchButton"
+                onClick={() =>
+                  props.onSearch(
+                    {
+                      searchTerm,
+                      orderedBy,
+                      releaseYear,
+                      rating,
+                      genre,
+                    },
+                    1
+                  )
+                }
+              >
+                Search
+              </button>
+            </Link>
           </div>
         </div>
         <div
@@ -157,7 +162,11 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    // orders: state.order.orders,
+    searchTerm: state.searchTerm,
+    orderedBy: state.orderedBy,
+    releaseYear: state.releaseYear,
+    rating: state.rating,
+    genre: state.genre,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);
