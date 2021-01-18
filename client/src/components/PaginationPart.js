@@ -62,8 +62,15 @@ function PaginationPart({
         >
           <Link to={"/browse-movies?page=" + (current + 1)}>Next »</Link>
         </li>
-        <li>
-          <a href="/browse-movies?page=1270">Last »</a>
+        <li
+          onClick={() =>
+            onHitPage(
+              { searchTerm, rating, releaseYear, orderedBy, genre },
+              Mlength
+            )
+          }
+        >
+          <Link to={"/browse-movies?page=" + Mlength}>Last »</Link>
         </li>
       </ul>
     </div>

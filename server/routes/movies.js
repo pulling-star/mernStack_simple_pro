@@ -5,15 +5,35 @@ const router = express.Router();
 //  @route  Get api/movies
 //  @desc   Get  movies
 //  @access Private
-router.get("/:page_no", async (req, res) => {
+router.get("/orderedBy/:orderedBy/:page_no", async (req, res) => {
   try {
+    const orderedBy = req.params.orderedBy;
+    let sortObject;
+    console.log(orderedBy);
+    switch (orderedBy) {
+      case "latest":
+        sortObject = { year: -1 };
+        break;
+      case "oldest":
+        sortObject = { year: 1 };
+        break;
+      case "alphabetical":
+        sortObject = { title: 1 };
+        break;
+      case "rating":
+        sortObject = { imdbRating: 1 };
+        break;
+      default:
+        sortObject = { year: -1 };
+        break;
+    }
     const allMovies = await Movie.find();
     const Mlength = allMovies.length;
     const movies = await Movie.find()
-      .sort({ year: -1 })
+      .sort(sortObject)
       .skip((parseInt(req.params.page_no) - 1) * 20)
       .limit(20);
-    console.log(movies);
+
     res.json({ movies: movies, Mlength });
   } catch (error) {
     console.log(error.message);
@@ -26,9 +46,11 @@ router.get("/:page_no", async (req, res) => {
 router.get("/title/:title", async (req, res) => {
   try {
     console.log(req.params.title);
-    let movies = await Movie.find({ title: req.params.title });
+    let movies = await Movie.find({
+      $or: [{ title: req.params.title }, { originalTitle: req.params.title }],
+    });
 
-    res.json(movies.length);
+    res.json(movies);
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");

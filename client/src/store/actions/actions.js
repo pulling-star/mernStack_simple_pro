@@ -25,15 +25,64 @@ export const getMovies = (
 ) => {
   return (dispatch) => {
     let queryParams;
-    if (
-      searchTerm === "" &&
-      rating === "All" &&
-      genre === "All" &&
-      releaseYear === "All" &&
-      orderedBy === "Latest"
-    ) {
-      queryParams = page_no;
+
+    if (searchTerm !== "") {
+      queryParams = "title/searchTerm/" + page_no;
+    } else if (rating === "All" && genre === "All" && releaseYear === "All") {
+      queryParams = "orderedBy/" + orderedBy + "/" + page_no;
+    } else if (rating === "All" && releaseYear === "All") {
+      queryParams =
+        "genre/" + genre + "/orderedBy/" + orderedBy + "/" + page_no;
+    } else if (genre === "All" && releaseYear === "All") {
+      queryParams =
+        "rating/" + rating + "/orderedBy/" + orderedBy + "/" + page_no;
+    } else if (genre === "All" && rating === "All") {
+      queryParams =
+        "year/" + releaseYear + "/orderedBy/" + orderedBy + "/" + page_no;
+    } else if (genre === "All") {
+      queryParams =
+        "rating/" +
+        rating +
+        "/year/" +
+        releaseYear +
+        "/orderedBy/" +
+        orderedBy +
+        "/" +
+        page_no;
+    } else if (rating === "All") {
+      queryParams =
+        "genre/" +
+        genre +
+        "/year/" +
+        releaseYear +
+        "/orderedBy/" +
+        orderedBy +
+        "/" +
+        page_no;
+    } else if (releaseYear === "All") {
+      queryParams =
+        "genre/" +
+        genre +
+        "/rating/" +
+        rating +
+        "/orderedBy/" +
+        orderedBy +
+        "/" +
+        page_no;
+    } else {
+      queryParams =
+        "genre/" +
+        genre +
+        "/rating/" +
+        rating +
+        "/year/" +
+        releaseYear +
+        "/orderedBy/" +
+        orderedBy +
+        "/" +
+        page_no;
     }
+    console.log(queryParams);
     // const queryParams =
     //   "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
     const searchReqs = {

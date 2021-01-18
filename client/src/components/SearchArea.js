@@ -137,14 +137,9 @@ const SearchArea = (props) => {
           >
             <option value="latest">Latest</option>
             <option value="oldest">Oldest</option>
-            <option value="featured">Featured</option>
-            <option value="seeds">Seeds</option>
-            <option value="peers">Peers</option>
             <option value="year">Year</option>
             <option value="rating">Rating</option>
-            <option value="likes">Likes</option>
             <option value="alphabetical">Alphabetical</option>
-            <option value="downloads">Downloads</option>
           </select>
         </div>
       </div>
