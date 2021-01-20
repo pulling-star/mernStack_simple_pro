@@ -2,12 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const ItemShow = ({ imgSrc, rating, genres, title, year }) => {
-  //   const [state, setstate] = useState(initialState);
-
+const ItemShow = ({ imgSrc, rating, genres, title, year, position }) => {
   return (
     <div>
-      <Link to="/movies">
+      <Link
+        to={{
+          pathname: "/movies",
+          state: {
+            position: position,
+          },
+        }}
+      >
         <figure>
           <img
             className="FilmImage"

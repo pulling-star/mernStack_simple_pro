@@ -2,17 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 
 import ItemShow from "./ItemShow";
-
+import SearchArea from "./SearchArea";
 import { withRouter } from "react-router";
 
 import PaginationPart from "./PaginationPart";
-const ShowSection = ({ movies, Mlength }) => {
+const ShowSection = ({ movies, Mlength, orderedBy }) => {
   return (
     <div style={{ background: "#1d1d1d" }}>
-      {/* <SearchArea /> */}
-      {movies.length > 0 ? <PaginationPart /> : null}
+      <SearchArea />
+      {Mlength > 0 ? (
+        <h2
+          style={{
+            color: "#6ac045",
+            textAlign: "center",
+            fontWeight: "normal",
+          }}
+        >
+          {Mlength} recommended movies foumd(by:{orderedBy})
+        </h2>
+      ) : null}
+      {Mlength > 20 ? <PaginationPart /> : null}
       <div className="showSection">
-        {movies.map((mov) => (
+        {movies.map((mov, index) => (
           <ItemShow
             key={mov._id}
             imgSrc={mov.posterurl}
@@ -20,10 +31,11 @@ const ShowSection = ({ movies, Mlength }) => {
             genres={mov.genres}
             title={mov.originalTitle ? mov.originalTitle : mov.title}
             year={mov.year}
+            position={index}
           />
         ))}
       </div>
-      {movies.length > 0 ? <PaginationPart /> : null}
+      {Mlength > 20 ? <PaginationPart /> : null}
     </div>
   );
 };
@@ -33,6 +45,7 @@ const mapStateToProps = (state) => {
     // orders: state.order.orders,
     movies: state.Movies,
     Mlength: state.Mlength,
+    orderedBy: state.orderedBy,
   };
 };
 export default withRouter(connect(mapStateToProps)(ShowSection));

@@ -36,8 +36,12 @@ ul {
   list-style: none;
 }
 
-img {
+.showSection img {
   width: 100%;
+
+  width: 170px !important;
+  height: 255px;
+  /* object-fit: cover; */
 }
 
 /* Utilities */
@@ -518,11 +522,11 @@ input:focus {
 
 .showSection {
   display: grid;
-  grid-template-columns: 300px 300px 300px 300px 300px;
+  grid-template-columns: 200px 200px 200px 200px 200px;
   grid-template-rows: auto auto auto auto;
   justify-items: auto;
   align-items: center;
-  padding: 20px 350px;
+  padding: 20px 210px;
   gap: 30px;
   row-gap: 30px;
 
@@ -535,7 +539,7 @@ a {
 }
 .showSection a:hover {
   border: 9px solid #6ac045;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 figure {
   overflow: hidden;
@@ -564,14 +568,14 @@ figcaption {
 }
 
 figure figcaption h4 {
-  font-size: 40px;
+  font-size: 25px;
   /* position: relative; */
   width: 100%;
-  padding-left: 0 !important;
   padding-right: 0 !important;
 
   font-weight: bold;
   color: #fff;
+  padding-left: 0 !important;
   text-align: center;
   font-weight: bold;
 }
@@ -588,7 +592,6 @@ a:hover figcaption {
 }
 a:hover .FilmImage {
   opacity: 0.2;
-  width: 100%;
 }
 
 .button-green {
@@ -600,11 +603,11 @@ a:hover .FilmImage {
   font-weight: bold;
   text-align: center;
   color: #fff;
-  top: 60px;
-  font-size: 20px;
+  top: 35px;
+  font-size: 16px;
   position: relative;
-  width: 190px;
-  padding: 15px 0;
+  width: 130px;
+  padding: 7px 0;
   margin-top: 20px;
   margin: 0 auto;
   -webkit-transition: all 300ms ease;
@@ -619,13 +622,14 @@ a:hover .button-green {
 }
 .icon-star {
   position: relative;
-  left: 120px;
+  left: 70px;
   width: 100%;
   color: #6ac045;
   font-size: xx-large;
   -webkit-transition: all 300ms ease;
   -moz-transition: all 300ms ease;
   transition: all 300ms ease;
+  text-align: center;
 }
 .ItemDetailView {
   display: grid;
@@ -655,19 +659,19 @@ a:hover .button-green {
   display: block;
   font-weight: bold;
   color: #fff;
-  outline: none;
   cursor: pointer;
   font-size: 18px;
   position: relative;
   width: 130px;
   padding: 10px 0;
   margin-left: 30px;
+  outline: none;
 }
 .pagination {
   margin: 25px 0px;
   padding: 0;
   height: 100%;
-  width: 90%;
+  width: 100%;
   overflow: hidden;
   justify-items: center;
   font-size: 18px;
@@ -726,4 +730,26 @@ ul.pagination li a.current {
 .movieTitle:hover {
   border: 0 !important;
   color: #919191;
+}
+.similarMovies {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 148px 148px;
+  gap: 15px;
+  width: max-content;
+
+  border: none;
+}
+.similarMovies a {
+  border: 4px solid white;
+}
+.similarMovies a:hover {
+  border: 4px solid #6ac045;
+}
+.similarMovies img {
+  width: 90px;
+  height: 140px;
+}
+p {
+  text-align: justify;
 }

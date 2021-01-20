@@ -18,10 +18,11 @@ const App = () => {
         <header>
           <Navbar />
         </header>
-        <SearchArea />
+        {/* <SearchArea /> */}
         <Switch>
           <Route path="/movies" component={ItemDetail} />
           <Route path="/browse-movies" component={ShowSection} />
+          <Route path="/" component={ShowSection} />
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
       </Router>

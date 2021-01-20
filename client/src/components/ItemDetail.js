@@ -1,7 +1,15 @@
 import React from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-function ItemDetail() {
+import { withRouter } from "react-router";
+import { connect } from "react-redux";
+function ItemDetail({
+  movies,
+  location: {
+    state: { position },
+  },
+}) {
+  console.log(movies);
   return (
     <div
       style={{
@@ -12,33 +20,24 @@ function ItemDetail() {
     >
       <div className="ItemDetailView">
         <div>
-          <img
-            src="https://img.yts.mx/assets/images/movies/darkness_waits_2020/medium-cover.jpg"
-            alt="Darkness Waits (2020) download"
-          />
+          <img width="260" height="390" src={movies[position].posterurl} />
         </div>
 
         <div style={{ color: "white", paddingLeft: "120px" }}>
           <div style={{ marginBottom: "50px" }}>
             <h1>Darkness Waits</h1>
-            <h2>2020</h2>
-            <h2>Horror</h2>
+            <h2>{movies[position].year}</h2>
+            <h2>{movies[position].genres[0]}</h2>
           </div>
           <div style={{ display: "flex" }}>
             <h2 style={{ marginRight: "20px" }}>Imdb</h2>
-            <h2>3</h2>
+            <h2>{movies[position].imdbRating}</h2>
             <FontAwesomeIcon icon={faStar} className="icon-star" />
           </div>
         </div>
         <div>
           <p style={{ color: "white", padding: "10px" }}>similar movies</p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: " 1fr 1fr ",
-              gridTemplateRows: "1fr 1fr",
-            }}
-          >
+          <div className="similarMovies">
             <a
               href="https://yts.mx/movies/the-darkness-2016"
               title="The Darkness (2016)"
@@ -46,6 +45,8 @@ function ItemDetail() {
               <img
                 src="https://img.yts.mx/assets/images/movies/the_darkness_2016/medium-cover.jpg"
                 alt="The Darkness (2016) download"
+                // width="90"
+                // height="130"
               />
             </a>
             <a
@@ -55,6 +56,8 @@ function ItemDetail() {
               <img
                 src="https://img.yts.mx/assets/images/movies/and_soon_the_darkness_1970/medium-cover.jpg"
                 alt="And Soon the Darkness (1970) download"
+                width="90"
+                height="130"
               />
             </a>
             <a
@@ -64,6 +67,8 @@ function ItemDetail() {
               <img
                 src="https://img.yts.mx/assets/images/movies/beyond_the_darkness_1979/medium-cover.jpg"
                 alt="Beyond the Darkness (1979) download"
+                width="90"
+                height="130"
               />
             </a>
             <a
@@ -73,13 +78,46 @@ function ItemDetail() {
               <img
                 src="https://img.yts.mx/assets/images/movies/serena_waits_2018/medium-cover.jpg"
                 alt="Serena Waits (2018) download"
+                width="90"
+                height="130"
               />
             </a>
+          </div>
+        </div>
+      </div>
+      <div style={{ padding: "20px 200px", display: "flex" }}>
+        <div style={{ color: "white", width: "60%" }}>
+          <h2>story line</h2>
+          <p style={{ color: "#919191" }}>{movies[position].storyline}</p>
+        </div>
+        <div style={{ marginLeft: "100px" }}>
+          <h2 style={{ color: "white" }}>cast</h2>
+          <div>
+            {movies[position].actors.map((a, index) => (
+              <p
+                key={index}
+                style={{
+                  color: "#919191",
+                  overflow: "hidden",
+                  borderBottom: "1px solid #2f2f2f",
+                  padding: " 10px 0",
+                }}
+              >
+                {a}
+              </p>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    movies: state.Movies,
+    Mlength: state.Mlength,
+    orderedBy: state.orderedBy,
+  };
+};
 
-export default ItemDetail;
+export default withRouter(connect(mapStateToProps)(ItemDetail));

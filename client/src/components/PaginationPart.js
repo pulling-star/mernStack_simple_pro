@@ -52,26 +52,30 @@ function PaginationPart({
     <div>
       <ul className="pagination">
         {pagesList.map((l) => l)}
-        <li
-          onClick={() =>
-            onHitPage(
-              { searchTerm, rating, releaseYear, orderedBy, genre },
-              current + 1
-            )
-          }
-        >
-          <Link to={"/browse-movies?page=" + (current + 1)}>Next »</Link>
-        </li>
-        <li
-          onClick={() =>
-            onHitPage(
-              { searchTerm, rating, releaseYear, orderedBy, genre },
-              Mlength
-            )
-          }
-        >
-          <Link to={"/browse-movies?page=" + Mlength}>Last »</Link>
-        </li>
+        {Mlength > 20 ? (
+          <li
+            onClick={() =>
+              onHitPage(
+                { searchTerm, rating, releaseYear, orderedBy, genre },
+                current + 1
+              )
+            }
+          >
+            <Link to={"/browse-movies?page=" + (current + 1)}>Next »</Link>
+          </li>
+        ) : null}
+        {Mlength > 20 ? (
+          <li
+            onClick={() =>
+              onHitPage(
+                { searchTerm, rating, releaseYear, orderedBy, genre },
+                Mlength
+              )
+            }
+          >
+            <Link to={"/browse-movies?page=" + Mlength}>Last »</Link>
+          </li>
+        ) : null}
       </ul>
     </div>
   );

@@ -14,6 +14,7 @@ const initialState = {
 };
 
 const setMov = (state, action) => {
+  console.log(action.Movies);
   return updateObject(state, {
     Movies: action.Movies,
     Mlength: action.Mlength,

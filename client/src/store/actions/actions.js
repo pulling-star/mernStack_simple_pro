@@ -27,7 +27,7 @@ export const getMovies = (
     let queryParams;
 
     if (searchTerm !== "") {
-      queryParams = "title/searchTerm/" + page_no;
+      queryParams = "title/" + searchTerm;
     } else if (rating === "All" && genre === "All" && releaseYear === "All") {
       queryParams = "orderedBy/" + orderedBy + "/" + page_no;
     } else if (rating === "All" && releaseYear === "All") {
@@ -97,7 +97,6 @@ export const getMovies = (
       .get("/api/movies/" + queryParams)
       .then((res) => {
         dispatch(setMovies(res.data, searchReqs));
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

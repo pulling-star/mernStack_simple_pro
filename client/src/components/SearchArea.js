@@ -79,32 +79,32 @@ const SearchArea = (props) => {
           <p style={{ float: "left !important" }}>Genre:</p>
           <select type="search" onChange={(e) => setGenre(e.target.value)}>
             <option value="all">All</option>
-            <option value="action">Action</option>
-            <option value="adventure">Adventure</option>
-            <option value="animation">Animation</option>
-            <option value="biography">Biography</option>
-            <option value="comedy">Comedy</option>
-            <option value="crime">Crime</option>
-            <option value="documentary">Documentary</option>
-            <option value="drama">Drama</option>
-            <option value="family">Family</option>
-            <option value="fantasy">Fantasy</option>
-            <option value="film-noir">Film-Noir</option>
-            <option value="game-show">Game-Show</option>
-            <option value="history">History</option>
-            <option value="horror">Horror</option>
-            <option value="music">Music</option>
-            <option value="musical">Musical</option>
-            <option value="mystery">Mystery</option>
-            <option value="news">News</option>
-            <option value="reality-tv">Reality-TV</option>
-            <option value="romance">Romance</option>
-            <option value="sci-fi">Sci-Fi</option>
-            <option value="sport">Sport</option>
-            <option value="talk-show">Talk-Show</option>
-            <option value="thriller">Thriller</option>
-            <option value="war">War</option>
-            <option value="western">Western</option>
+            <option value="Action">Action</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Animation">Animation</option>
+            <option value="Biography">Biography</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Crime">Crime</option>
+            <option value="Documentary">Documentary</option>
+            <option value="Drama">Drama</option>
+            <option value="Family">Family</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Film-noir">Film-Noir</option>
+            <option value="Game-show">Game-Show</option>
+            <option value="History">History</option>
+            <option value="Horror">Horror</option>
+            <option value="Music">Music</option>
+            <option value="Musical">Musical</option>
+            <option value="Mystery">Mystery</option>
+            <option value="News">News</option>
+            <option value="Reality-tv">Reality-TV</option>
+            <option value="Romance">Romance</option>
+            <option value="Dci-fi">Sci-Fi</option>
+            <option value="Sport">Sport</option>
+            <option value="Talk-show">Talk-Show</option>
+            <option value="Thriller">Thriller</option>
+            <option value="War">War</option>
+            <option value="Western">Western</option>
           </select>
         </div>
         <div
@@ -115,9 +115,9 @@ const SearchArea = (props) => {
             type="search"
             onChange={(e) => setReleaseYear(e.target.value)}
           >
-            <option value="0">All</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
+            <option value="All">All</option>
+
+            <option value="2019-2021">2019-2021</option>
             <option value="2015-2018">2015-2018</option>
             <option value="2010-2014">2010-2014</option>
             <option value="2000-2009">2000-2009</option>
