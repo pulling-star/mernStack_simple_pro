@@ -114,9 +114,9 @@ function ItemDetail({
 }
 const mapStateToProps = (state) => {
   return {
-    movies: state.Movies,
-    Mlength: state.Mlength,
-    orderedBy: state.orderedBy,
+    movies: state.movies.Movies,
+    Mlength: state.movies.Mlength,
+    orderedBy: state.movies.orderedBy,
   };
 };
 

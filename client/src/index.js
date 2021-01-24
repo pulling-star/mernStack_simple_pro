@@ -5,16 +5,19 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
 
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import MovieReducer from "./store/reducers/MoviesReducer";
-
+import AuthReducer from "./store/reducers/AuthReducer";
 const composeEnhancers =
   process.env.Node_ENV === "development"
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : null || compose;
-
+const rootReducer = combineReducers({
+  movies: MovieReducer,
+  auth: AuthReducer,
+});
 const store = createStore(
-  MovieReducer,
+  rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
 

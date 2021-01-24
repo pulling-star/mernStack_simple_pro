@@ -33,17 +33,19 @@ const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
       )}
       {Mlength > 20 ? <PaginationPart /> : null}
       <div className="showSection">
-        {movies.map((mov, index) => (
-          <ItemShow
-            key={mov._id}
-            imgSrc={mov.posterurl}
-            rating={mov.imdbRating}
-            genres={mov.genres}
-            title={mov.originalTitle ? mov.originalTitle : mov.title}
-            year={mov.year}
-            position={index}
-          />
-        ))}
+        {movies.length > 0
+          ? movies.map((mov, index) => (
+              <ItemShow
+                key={mov._id}
+                imgSrc={mov.posterurl}
+                rating={mov.imdbRating}
+                genres={mov.genres}
+                title={mov.originalTitle ? mov.originalTitle : mov.title}
+                year={mov.year}
+                position={index}
+              />
+            ))
+          : null}
       </div>
       {Mlength > 20 ? <PaginationPart /> : null}
     </div>
@@ -53,10 +55,10 @@ const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
 const mapStateToProps = (state) => {
   return {
     // orders: state.order.orders,
-    movies: state.Movies,
-    Mlength: state.Mlength,
-    orderedBy: state.orderedBy,
-    msg: state.msg,
+    movies: state.movies.Movies,
+    Mlength: state.movies.Mlength,
+    orderedBy: state.movies.orderedBy,
+    msg: state.movies.msg,
   };
 };
 export default withRouter(connect(mapStateToProps)(ShowSection));

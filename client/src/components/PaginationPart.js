@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as actions from "../store/actions/actions";
+import * as actions from "../store/actions/movies";
 function PaginationPart({
   Mlength,
   current,
@@ -90,13 +90,13 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     // orders: state.order.orders,
-    current: state.page_no,
-    Mlength: state.Mlength,
-    searchTerm: state.searchTerm,
-    rating: state.rating,
-    genre: state.genre,
-    releaseYear: state.releaseYear,
-    orderedBy: state.orderedBy,
+    current: state.movies.page_no,
+    Mlength: state.movies.Mlength,
+    searchTerm: state.movies.searchTerm,
+    rating: state.movies.rating,
+    genre: state.movies.genre,
+    releaseYear: state.movies.releaseYear,
+    orderedBy: state.movies.orderedBy,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PaginationPart);

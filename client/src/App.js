@@ -10,6 +10,8 @@ import Navbar from "./components/Navbar";
 import SearchArea from "./components/SearchArea";
 import ShowSection from "./components/ShowSection";
 import ItemDetail from "./components/ItemDetail";
+import Register from "./components/Register";
+import Login from "./components/LogIn";
 import "./App.css";
 const App = () => {
   return (
@@ -22,6 +24,9 @@ const App = () => {
         <Switch>
           <Route path="/movies" component={ItemDetail} />
           <Route path="/browse-movies" component={ShowSection} />
+
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
           <Route path="/" component={ShowSection} />
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>

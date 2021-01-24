@@ -24,11 +24,11 @@ const Navbar = () => {
             <i className="fas fa-user-circle text-primary" />
             Home
           </Link>
-          <Link to="/" className="btn ">
+          <Link to="/login" className="btn ">
             <i className="fab fa-black-tie text-primary" />
             Login
           </Link>
-          <Link to="/" className="btn ">
+          <Link to="/register" className="btn ">
             <i className="fas fa-graduation-cap text-primary" />
             Register
           </Link>

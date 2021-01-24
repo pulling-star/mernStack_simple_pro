@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import * as actions from "../store/actions/actions";
+import * as actions from "../store/actions/movies";
 import { Link } from "react-router-dom";
 
 const SearchArea = (props) => {
@@ -157,11 +157,11 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    searchTerm: state.searchTerm,
-    orderedBy: state.orderedBy,
-    releaseYear: state.releaseYear,
-    rating: state.rating,
-    genre: state.genre,
+    searchTerm: state.movies.searchTerm,
+    orderedBy: state.movies.orderedBy,
+    releaseYear: state.movies.releaseYear,
+    rating: state.movies.rating,
+    genre: state.movies.genre,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);
