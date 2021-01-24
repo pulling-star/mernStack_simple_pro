@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import movies from "./routes/movies.js";
+import users from "./routes/users.js";
 import cors from "cors";
 const app = express();
 
@@ -12,6 +13,7 @@ const CONNECTIONURL =
   "mongodb+srv://ahmedreda:721996@cluster0.eymbv.mongodb.net/recommendation_database?retryWrites=true&w=majority";
 
 app.use("/api/movies", movies);
+app.use("/api/users", users);
 
 app.get("/", (req, res) => res.send("API Running"));
 mongoose.set("useFindAndModify", false);

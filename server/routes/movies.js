@@ -38,7 +38,7 @@ router.get("/orderedBy/:orderedBy/:page_no", async (req, res) => {
       .skip((parseInt(req.params.page_no) - 1) * 20)
       .limit(20);
 
-    res.json({ movies: movies, Mlength });
+    res.json({ msg: "", movies: movies, Mlength });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");
@@ -53,8 +53,10 @@ router.get("/title/:title", async (req, res) => {
     let movies = await Movie.find({
       $or: [{ title: req.params.title }, { originalTitle: req.params.title }],
     });
-    if (movies) {
-      res.json({ movies, Mlength: 1 });
+    if (movies.length > 0) {
+      res.json({ msg: "", movies, Mlength: 1 });
+    } else {
+      res.json({ msg: "There is no movies with this title", Mlength: 0 });
     }
   } catch (error) {
     console.log(error.message);
@@ -77,7 +79,7 @@ router.get("/genre/:genre/orderedBy/:orderedBy/:page_no", async (req, res) => {
       .skip((parseInt(req.params.page_no) - 1) * 20)
       .limit(20);
 
-    res.json({ movies, Mlength });
+    res.json({ msg: "", movies, Mlength });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");
@@ -103,7 +105,7 @@ router.get(
         .skip((parseInt(req.params.page_no) - 1) * 20)
         .limit(20);
 
-      res.json({ movies, Mlength });
+      res.json({ msg: "", movies, Mlength });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Server error");
@@ -138,7 +140,7 @@ router.get("/year/:year/orderedBy/:orderedBy/:page_no", async (req, res) => {
       .skip((parseInt(req.params.page_no) - 1) * 20)
       .limit(20);
 
-    res.json({ movies, Mlength });
+    res.json({ msg: "", movies, Mlength });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");
@@ -183,7 +185,7 @@ router.get(
         .skip((parseInt(req.params.page_no) - 1) * 20)
         .limit(20);
 
-      res.json({ movies, Mlength });
+      res.json({ msg: "", movies, Mlength });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Server error");
@@ -231,7 +233,7 @@ router.get(
         .skip((parseInt(req.params.page_no) - 1) * 20)
         .limit(20);
 
-      res.json({ movies, Mlength });
+      res.json({ msg: "", movies, Mlength });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Server error");
@@ -271,7 +273,7 @@ router.get(
         .skip((parseInt(req.params.page_no) - 1) * 20)
         .limit(20);
 
-      res.json({ movies, Mlength });
+      res.json({ msg: "", movies, Mlength });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Server error");
@@ -323,7 +325,7 @@ router.get(
         .skip((parseInt(req.params.page_no) - 1) * 20)
         .limit(20);
 
-      res.json({ movies, Mlength });
+      res.json({ msg: "", movies, Mlength });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Server error");

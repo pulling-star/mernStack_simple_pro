@@ -2,17 +2,33 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 
 export const setMovies = (Movies, reqs) => {
-  return {
-    type: actionTypes.SET_MOVIES,
-    Movies: Movies.movies,
-    Mlength: Movies.Mlength,
-    searchTerm: reqs.searchTerm,
-    rating: reqs.rating,
-    genre: reqs.genre,
-    releaseYear: reqs.releaseYear,
-    orderedBy: reqs.orderedBy,
-    page_no: reqs.page_no,
-  };
+  if (Movies.msg === "") {
+    return {
+      msg: "",
+      type: actionTypes.SET_MOVIES,
+      Movies: Movies.movies,
+      Mlength: Movies.Mlength,
+      searchTerm: reqs.searchTerm,
+      rating: reqs.rating,
+      genre: reqs.genre,
+      releaseYear: reqs.releaseYear,
+      orderedBy: reqs.orderedBy,
+      page_no: reqs.page_no,
+    };
+  } else {
+    return {
+      type: actionTypes.SET_MOVIES,
+      Movies: [],
+      msg: Movies.msg,
+      Mlength: Movies.Mlength,
+      searchTerm: reqs.searchTerm,
+      rating: reqs.rating,
+      genre: reqs.genre,
+      releaseYear: reqs.releaseYear,
+      orderedBy: reqs.orderedBy,
+      page_no: reqs.page_no,
+    };
+  }
 };
 export const fetchMoviesFailed = () => {
   return {

@@ -6,7 +6,7 @@ import SearchArea from "./SearchArea";
 import { withRouter } from "react-router";
 
 import PaginationPart from "./PaginationPart";
-const ShowSection = ({ movies, Mlength, orderedBy }) => {
+const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
   return (
     <div style={{ background: "#1d1d1d" }}>
       <SearchArea />
@@ -20,7 +20,17 @@ const ShowSection = ({ movies, Mlength, orderedBy }) => {
         >
           {Mlength} recommended movies foumd(by:{orderedBy})
         </h2>
-      ) : null}
+      ) : (
+        <h2
+          style={{
+            color: "#6ac045",
+            textAlign: "center",
+            fontWeight: "normal",
+          }}
+        >
+          {msg}
+        </h2>
+      )}
       {Mlength > 20 ? <PaginationPart /> : null}
       <div className="showSection">
         {movies.map((mov, index) => (
@@ -46,6 +56,7 @@ const mapStateToProps = (state) => {
     movies: state.Movies,
     Mlength: state.Mlength,
     orderedBy: state.orderedBy,
+    msg: state.msg,
   };
 };
 export default withRouter(connect(mapStateToProps)(ShowSection));

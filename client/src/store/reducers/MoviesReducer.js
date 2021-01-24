@@ -11,6 +11,7 @@ const initialState = {
   Mlength: 0,
   error: false,
   page_no: 1,
+  msg: "",
 };
 
 const setMov = (state, action) => {
@@ -18,7 +19,7 @@ const setMov = (state, action) => {
   return updateObject(state, {
     Movies: action.Movies,
     Mlength: action.Mlength,
-
+    msg: action.msg,
     searchTerm: action.searchTerm,
     rating: action.rating,
     genre: action.genre,
