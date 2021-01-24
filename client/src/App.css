@@ -140,7 +140,7 @@ ul {
   font-weight: bold;
   border: none;
   cursor: pointer;
-  margin-right: 0.5rem;
+  margin-left: 0.5rem;
   transition: color 0.25s ease-in-out;
   outline: none;
 }
@@ -471,6 +471,9 @@ ul {
   .post button {
     padding: 0.3rem 0.4rem;
   }
+}
+button {
+  background: transparent;
 }
 input[type="search"] {
   margin-top: 5px;
