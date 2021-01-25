@@ -12,3 +12,6 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
 export const CLEAR_PROFILE = "CLEAR_PROFILE";
+export const UPDATE_FAVORITE = "UPDATE_FAVORITE";
+export const UPDATE_LIKES = "UPDATE_FAVORITE";
+export const MOVIE_ERROR = "MOVIE_ERROR";

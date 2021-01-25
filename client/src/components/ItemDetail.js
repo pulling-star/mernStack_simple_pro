@@ -1,15 +1,28 @@
-import React from "react";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
+import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import { addToFavorite } from "../store/actions/auth";
 function ItemDetail({
+  user,
   movies,
+  onFavorites,
   location: {
     state: { position },
   },
 }) {
   console.log(movies);
+  const favSentence = user.favorites.some(
+    (item) => item.movieId === movies[position]._id
+  )
+    ? "remove from favorite"
+    : "add to favorites";
+  const star_icon_class = user.favorites.some(
+    (item) => item.movieId === movies[position]._id
+  )
+    ? "icon-star"
+    : "white-star";
   return (
     <div
       style={{
@@ -21,6 +34,15 @@ function ItemDetail({
       <div className="ItemDetailView">
         <div>
           <img width="260" height="390" src={movies[position].posterurl} />
+
+          <p className="favorite">
+            {favSentence}
+            <FontAwesomeIcon
+              icon={faStar}
+              onClick={() => onFavorites(movies[position]._id)}
+              className={star_icon_class}
+            />
+          </p>
         </div>
 
         <div style={{ color: "white", paddingLeft: "120px" }}>
@@ -28,6 +50,16 @@ function ItemDetail({
             <h1>Darkness Waits</h1>
             <h2>{movies[position].year}</h2>
             <h2>{movies[position].genres[0]}</h2>
+          </div>
+          <div>
+            <h2>
+              Likes: {movies[position].likes.length}
+              <FontAwesomeIcon
+                onClick={() => onFavorites(movies[position].id)}
+                icon={faHeart}
+                className="icon-heart"
+              />
+            </h2>
           </div>
           <div style={{ display: "flex" }}>
             <h2 style={{ marginRight: "20px" }}>Imdb</h2>
@@ -112,12 +144,22 @@ function ItemDetail({
     </div>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFavorites: (id) => {
+      dispatch(addToFavorite(id));
+    },
+  };
+};
 const mapStateToProps = (state) => {
   return {
     movies: state.movies.Movies,
     Mlength: state.movies.Mlength,
     orderedBy: state.movies.orderedBy,
+    user: state.auth.user,
   };
 };
 
-export default withRouter(connect(mapStateToProps)(ItemDetail));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ItemDetail)
+);

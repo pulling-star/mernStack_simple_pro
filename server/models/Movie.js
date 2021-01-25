@@ -33,6 +33,7 @@ const MovieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
   actors: { type: Array, required: true },
   imdbRating: Number,
   posterurl: {

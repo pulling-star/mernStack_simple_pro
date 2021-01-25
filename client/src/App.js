@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   BrowserRouter as Router,
@@ -6,14 +6,21 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import store from "./store/store";
 import Navbar from "./components/Navbar";
 import SearchArea from "./components/SearchArea";
 import ShowSection from "./components/ShowSection";
 import ItemDetail from "./components/ItemDetail";
 import Register from "./components/Register";
 import Login from "./components/LogIn";
+import { setAuthToken } from "./store/utility";
+import { loadUser } from "./store/actions/auth";
 import "./App.css";
 const App = () => {
+  useEffect(() => {
+    setAuthToken(localStorage.token);
+    store.dispatch(loadUser());
+  }, []);
   return (
     <div style={{ background: "#1d1d1d" }}>
       <Router>

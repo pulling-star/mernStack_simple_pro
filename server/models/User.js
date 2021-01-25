@@ -1,11 +1,19 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 const UserSchema = new mongoose.Schema({
+  id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   avatar: { type: String },
-  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "movie" }],
+  favorites: [
+    {
+      movieId: String,
+    },
+  ],
   date: { type: Date, default: Date.now },
 });
 

@@ -120,3 +120,37 @@ export const getMovies = (
       });
   };
 };
+
+// Add like
+export const addLike = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/movies/like/${id}`);
+
+    dispatch({
+      type: actionTypes.UPDATE_LIKES,
+      payload: { id, likes: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.MOVIE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Remove like
+export const removeLike = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/movies/unlike/${id}`);
+
+    dispatch({
+      type: actionTypes.UPDATE_LIKES,
+      payload: { id, likes: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.MOVIE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};

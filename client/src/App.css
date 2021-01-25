@@ -637,6 +637,25 @@ a:hover .button-green {
   transition: all 300ms ease;
   text-align: center;
 }
+
+.white-star {
+  position: relative;
+  left: 20px;
+  width: 100%;
+  color: white;
+  cursor: pointer;
+  font-size: xx-large;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  transition: all 300ms ease;
+  text-align: center;
+}
+.white-star:visited {
+  color: #6ac045;
+}
+.favorite .icon-star {
+  left: 20px;
+}
 .ItemDetailView {
   display: grid;
   /* justify-items: auto;
@@ -805,4 +824,23 @@ ul.pagination li a.current {
 }
 .button-reg:hover {
   color: white;
+}
+.favorite {
+  color: white;
+  font-size: 19px;
+  margin-bottom: 10px;
+
+  width: 90%;
+  text-align: center;
+}
+.icon-heart {
+  position: relative;
+  left: 20px;
+  width: 100%;
+  color: #6ac045;
+  font-size: xx-large;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  transition: all 300ms ease;
+  text-align: center;
 }

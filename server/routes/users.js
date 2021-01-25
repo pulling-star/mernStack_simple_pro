@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Movie from "../models/Movie.js";
 import express from "express";
 import checkAPIs from "express-validator";
 import gravatar from "gravatar";
@@ -109,6 +110,40 @@ router.post("/signIn", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status("500").send("Server error  ");
+  }
+});
+
+//  @route  PUT api/users/favorite/:id
+//  @desc   add to favorite
+//  @access Private
+router.put("/favorite/:id", auth, async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+
+    if (!movie) return res.status(404).json({ msg: "movie not found" });
+
+    const user = await User.findById(req.user_id);
+
+    if (
+      user.favorites.filter(
+        (movie) => movie.movieId.toString() === req.params.id
+      ).length > 0
+    ) {
+      const index = user.favorites.indexOf({
+        _id: req.user_id,
+        movieId: req.params.id,
+      });
+      user.favorites.splice(index, 1);
+    } else {
+      user.favorites.unshift({ movieId: req.params.id });
+    }
+    await user.save();
+    res.json(user.favorites);
+  } catch (error) {
+    console.log(error.message);
+    if (error.kind === "ObjectId")
+      return res.status(404).json({ msg: "movie not found" });
+    res.status(500).send("Server error");
   }
 });
 export default router;

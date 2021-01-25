@@ -1,5 +1,6 @@
 import Movie from "../models/Movie.js";
 import express from "express";
+import auth from "../middleware/auth.js";
 const router = express.Router();
 
 const setSortObject = (orderedBy) => {
@@ -332,4 +333,61 @@ router.get(
     }
   }
 );
+
+//  @route  PUT api/movies/like/:id
+//  @desc   Like a movie
+//  @access Private
+router.put("/like/:id", auth, async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) return res.status(404).json({ msg: "movie not found" });
+
+    // Check if the movie has already been liked
+    if (
+      movie.likes.filter((like) => like.user.toString() === req.user.id)
+        .length > 0
+    ) {
+      return res.status(400).json({ msg: "Movie already liked" });
+    }
+    movie.likes.unshift({ user: req.user.id });
+    await movie.save();
+    res.json(movie.likes);
+  } catch (error) {
+    console.log(error.message);
+    if (error.kind === "ObjectId")
+      return res.status(404).json({ msg: "movie not found" });
+    res.status(500).send("Server error");
+  }
+});
+
+//  @route  PUT api/movies/unlike/:id
+//  @desc   Unlike a post
+//  @access Private
+router.put("/unlike/:id", auth, async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) return res.status(404).json({ msg: "post not found" });
+
+    // Check if the movie has already been liked
+    if (
+      movie.likes.filter((like) => like.user.toString() === req.user.id)
+        .length === 0
+    ) {
+      return res.status(400).json({ msg: "Movie has not yet been liked" });
+    }
+    // Get removed Index
+    const removedIndex = post.likes
+      .map((like) => like.user.toString())
+      .indexOf(req.user.id);
+
+    movie.likes.splice(removedIndex, 1);
+    await movie.save();
+    res.json(movie.likes);
+  } catch (error) {
+    console.log(error.message);
+    if (error.kind === "ObjectId")
+      return res.status(404).json({ msg: "movie not found" });
+    res.status(500).send("Server error");
+  }
+});
 export default router;

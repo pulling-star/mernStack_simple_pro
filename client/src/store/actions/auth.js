@@ -9,6 +9,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_PROFILE,
+  UPDATE_LIKES,
+  UPDATE_FAVORITE,
+  MOVIE_ERROR,
 } from "./actionTypes";
 import { setAuthToken } from "../utility";
 
@@ -92,4 +95,21 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: CLEAR_PROFILE,
   });
+};
+
+// Add to favorite
+export const addToFavorite = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/users/favorite/${id}`);
+
+    dispatch({
+      type: UPDATE_FAVORITE,
+      payload: { id, favorites: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: MOVIE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
 };
