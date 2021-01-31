@@ -119,11 +119,11 @@ router.post("/signIn", async (req, res) => {
 router.put("/favorite/:id", auth, async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
-
+    // console.log(movie);
     if (!movie) return res.status(404).json({ msg: "movie not found" });
 
     const user = await User.findById(req.user_id);
-
+    // console.log(user);
     if (
       user.favorites.filter(
         (movie) => movie.movieId.toString() === req.params.id
@@ -134,6 +134,7 @@ router.put("/favorite/:id", auth, async (req, res) => {
         movieId: req.params.id,
       });
       user.favorites.splice(index, 1);
+      console.log(user.favorites);
     } else {
       user.favorites.unshift({ movieId: req.params.id });
     }

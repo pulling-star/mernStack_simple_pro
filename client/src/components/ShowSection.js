@@ -18,7 +18,7 @@ const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
             fontWeight: "normal",
           }}
         >
-          {Mlength} recommended movies foumd(by:{orderedBy})
+          {Mlength} recommended movies found(by:{orderedBy})
         </h2>
       ) : (
         <h2

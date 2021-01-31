@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { addToFavorite } from "../store/actions/auth";
+import Spinner from "./Spinner";
 function ItemDetail({
+  loading,
   user,
   movies,
   onFavorites,
@@ -13,16 +15,37 @@ function ItemDetail({
   },
 }) {
   console.log(movies);
-  const favSentence = user.favorites.some(
-    (item) => item.movieId === movies[position]._id
-  )
-    ? "remove from favorite"
-    : "add to favorites";
-  const star_icon_class = user.favorites.some(
-    (item) => item.movieId === movies[position]._id
-  )
-    ? "icon-star"
-    : "white-star";
+  const [favorite, setFavorite] = useState(
+    user.favorites.some((item) => item.movieId === movies[position]._id)
+  );
+
+  const favoriteElement = loading ? (
+    <Spinner />
+  ) : favorite ? (
+    <p className="favorite">
+      remove from favorites
+      <FontAwesomeIcon
+        icon={faStar}
+        onClick={() => {
+          setFavorite(!favorite);
+          onFavorites(movies[position]);
+        }}
+        className="icon-star"
+      />
+    </p>
+  ) : (
+    <p className="favorite">
+      add to favorites
+      <FontAwesomeIcon
+        icon={faStar}
+        onClick={() => {
+          setFavorite(!favorite);
+          onFavorites(movies[position]);
+        }}
+        className="white-star"
+      />
+    </p>
+  );
   return (
     <div
       style={{
@@ -35,14 +58,7 @@ function ItemDetail({
         <div>
           <img width="260" height="390" src={movies[position].posterurl} />
 
-          <p className="favorite">
-            {favSentence}
-            <FontAwesomeIcon
-              icon={faStar}
-              onClick={() => onFavorites(movies[position]._id)}
-              className={star_icon_class}
-            />
-          </p>
+          {favoriteElement}
         </div>
 
         <div style={{ color: "white", paddingLeft: "120px" }}>
@@ -55,7 +71,7 @@ function ItemDetail({
             <h2>
               Likes: {movies[position].likes.length}
               <FontAwesomeIcon
-                onClick={() => onFavorites(movies[position].id)}
+                onClick={() => onFavorites(movies[position])}
                 icon={faHeart}
                 className="icon-heart"
               />
@@ -146,8 +162,8 @@ function ItemDetail({
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFavorites: (id) => {
-      dispatch(addToFavorite(id));
+    onFavorites: (mov) => {
+      dispatch(addToFavorite(mov));
     },
   };
 };
@@ -157,6 +173,7 @@ const mapStateToProps = (state) => {
     Mlength: state.movies.Mlength,
     orderedBy: state.movies.orderedBy,
     user: state.auth.user,
+    loading: state.auth.loading,
   };
 };
 

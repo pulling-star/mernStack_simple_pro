@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/movies";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const SearchArea = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,7 +9,23 @@ const SearchArea = (props) => {
   const [genre, setGenre] = useState("All");
   const [releaseYear, setReleaseYear] = useState("All");
   const [orderedBy, setOrderedBy] = useState("Latest");
-
+  let history = useHistory();
+  console.log(props.isAuthenticated);
+  const searchForMovies = props.isAuthenticated
+    ? () => {
+        props.onSearch(
+          {
+            searchTerm,
+            orderedBy,
+            releaseYear,
+            rating,
+            genre,
+          },
+          1
+        );
+        history.push("/browse-movies");
+      }
+    : () => history.push("/login");
   return (
     <div
       style={{
@@ -32,28 +48,9 @@ const SearchArea = (props) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div style={{ display: "inline-block" }}>
-            <Link
-              style={{ outLine: "none", border: 0 }}
-              to={"/browse-movies?page=" + 1}
-            >
-              <button
-                className="searchButton"
-                onClick={() =>
-                  props.onSearch(
-                    {
-                      searchTerm,
-                      orderedBy,
-                      releaseYear,
-                      rating,
-                      genre,
-                    },
-                    1
-                  )
-                }
-              >
-                Search
-              </button>
-            </Link>
+            <button className="searchButton" onClick={searchForMovies}>
+              Search
+            </button>
           </div>
         </div>
         <div
@@ -78,7 +75,7 @@ const SearchArea = (props) => {
         >
           <p style={{ float: "left !important" }}>Genre:</p>
           <select type="search" onChange={(e) => setGenre(e.target.value)}>
-            <option value="all">All</option>
+            <option value="All">All</option>
             <option value="Action">Action</option>
             <option value="Adventure">Adventure</option>
             <option value="Animation">Animation</option>
@@ -162,6 +159,7 @@ const mapStateToProps = (state) => {
     releaseYear: state.movies.releaseYear,
     rating: state.movies.rating,
     genre: state.movies.genre,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);

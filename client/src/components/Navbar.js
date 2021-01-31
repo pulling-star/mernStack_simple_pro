@@ -28,7 +28,12 @@ const Navbar = ({ isAuthenticated, logout }) => {
               <i className="fab fa-black-tie text-primary" />
               Login
             </Link>
-          ) : null}
+          ) : (
+            <Link to="/profile" className="btn ">
+              <i className="fab fa-black-tie text-primary" />
+              Profile
+            </Link>
+          )}
           {!isAuthenticated ? (
             <Link to="/register" className="btn">
               <i className="fas fa-graduation-cap text-primary" />
@@ -46,7 +51,7 @@ const Navbar = ({ isAuthenticated, logout }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 export default connect(mapStateToProps, { logout })(Navbar);

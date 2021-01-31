@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
-
+import qs from "qs";
 export const setMovies = (Movies, reqs) => {
   if (Movies.msg === "") {
     return {
@@ -121,6 +121,24 @@ export const getMovies = (
   };
 };
 
+//get Favorites
+export const getFavorites = (movies) => async (dispatch) => {
+  try {
+    movies = movies.map((m) => m.movieId);
+
+    const res = await axios.get(`/api/movies/favorites/${movies}`);
+    console.log(res.data);
+    dispatch({
+      type: actionTypes.GET_FAVORITES,
+      payload: res.data.movies,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.FAVORITES_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 // Add like
 export const addLike = (id) => async (dispatch) => {
   try {

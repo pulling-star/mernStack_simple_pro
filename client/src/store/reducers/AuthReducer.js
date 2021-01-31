@@ -7,13 +7,18 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
+  UPDATE_FAVORITE,
+  FAVORITES_ERROR,
+  GET_FAVORITES,
 } from "../actions/actionTypes";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthinticated: null,
+  isAuthenticated: null,
   loading: true,
   user: null,
+  favorites: [],
+  err: "",
 };
 export default function (state = { initialState }, action) {
   const { type, payload } = action;
@@ -24,6 +29,7 @@ export default function (state = { initialState }, action) {
         isAuthenticated: true,
         loading: false,
         user: payload,
+        favorites: payload.favorites,
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
@@ -31,8 +37,20 @@ export default function (state = { initialState }, action) {
       return {
         ...state,
         ...payload,
-        isAuthinticated: true,
+        isAuthenticated: true,
         loading: false,
+      };
+    case UPDATE_FAVORITE:
+      return {
+        ...state,
+        loading: false,
+        favorites: payload.favorites,
+      };
+    case FAVORITES_ERROR:
+      return {
+        ...state,
+        loading: false,
+        err: action.msg,
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:
@@ -43,7 +61,7 @@ export default function (state = { initialState }, action) {
       return {
         ...state,
         token: null,
-        isAuthinticated: false,
+        isAuthenticated: false,
         loading: false,
         user: null,
       };

@@ -11,7 +11,7 @@ import {
   CLEAR_PROFILE,
   UPDATE_LIKES,
   UPDATE_FAVORITE,
-  MOVIE_ERROR,
+  FAVORITES_ERROR,
 } from "./actionTypes";
 import { setAuthToken } from "../utility";
 
@@ -20,18 +20,20 @@ export const loadUser = () => async (dispatch) => {
   console.log(localStorage);
   if (localStorage.getItem("token")) {
     setAuthToken(localStorage.getItem("token"));
-  }
-  try {
-    const res = await axios.get("/api/users");
 
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
+    try {
+      const res = await axios.get("/api/users");
+
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: AUTH_ERROR,
+        payload: err,
+      });
+    }
   }
 };
 // REGISTER USER
@@ -98,17 +100,17 @@ export const logout = () => (dispatch) => {
 };
 
 // Add to favorite
-export const addToFavorite = (id) => async (dispatch) => {
+export const addToFavorite = (movie) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/users/favorite/${id}`);
+    const res = await axios.put(`/api/users/favorite/${movie._id}`);
 
     dispatch({
       type: UPDATE_FAVORITE,
-      payload: { id, favorites: res.data },
+      payload: { id: movie._id, favorites: res.data },
     });
   } catch (err) {
     dispatch({
-      type: MOVIE_ERROR,
+      type: FAVORITES_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

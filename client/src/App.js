@@ -12,6 +12,7 @@ import SearchArea from "./components/SearchArea";
 import ShowSection from "./components/ShowSection";
 import ItemDetail from "./components/ItemDetail";
 import Register from "./components/Register";
+import Profile from "./components/Profile";
 import Login from "./components/LogIn";
 import { setAuthToken } from "./store/utility";
 import { loadUser } from "./store/actions/auth";
@@ -34,6 +35,7 @@ const App = () => {
 
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/profile" component={Profile} />
           <Route path="/" component={ShowSection} />
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>

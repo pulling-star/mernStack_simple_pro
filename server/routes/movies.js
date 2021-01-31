@@ -1,6 +1,8 @@
 import Movie from "../models/Movie.js";
 import express from "express";
 import auth from "../middleware/auth.js";
+import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 const router = express.Router();
 
 const setSortObject = (orderedBy) => {
@@ -40,6 +42,28 @@ router.get("/orderedBy/:orderedBy/:page_no", async (req, res) => {
       .limit(20);
 
     res.json({ msg: "", movies: movies, Mlength });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//  @route  Get api/movies/FAVORITES
+//  @desc   Get all movies that have specific title
+//  @access Private
+router.get("/favorites/:movies", async (req, res) => {
+  try {
+    const favorites = req.params.movies.split(",");
+
+    let movies = await Movie.find({
+      _id: { $in: favorites },
+    });
+
+    if (movies) {
+      res.json({ msg: "", movies, Mlength: 1 });
+    } else {
+      res.json({ msg: "There is no movies with this id", Mlength: 0 });
+    }
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");
