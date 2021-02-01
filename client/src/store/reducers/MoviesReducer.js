@@ -2,6 +2,7 @@ import { updateObject } from "../utility";
 
 import * as actionTypes from "../actions/actionTypes";
 const initialState = {
+  moviesQuickSearch: [],
   searchTerm: "",
   SpecificMovies: [],
   rating: "All",
@@ -49,6 +50,23 @@ const reducer = (state = initialState, action) => {
       return getAMovie(state, action);
     case actionTypes.FETCH_MOVIES_FAILED:
       return fetchMovFailed(state, action);
+    case actionTypes.QUICK_SEARCH_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.QUICK_SEARCH:
+      return {
+        ...state,
+        moviesQuickSearch: action.payload,
+        loading: false,
+      };
+    case actionTypes.QUICK_SEARCH_ERROR:
+      return {
+        ...state,
+        error: action.msg,
+        loading: false,
+      };
     case actionTypes.FAVORITES_ERROR:
       return {
         ...state,

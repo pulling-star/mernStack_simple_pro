@@ -866,3 +866,26 @@ ul.pagination li a.current {
 .FavoriteItem {
   border-bottom: 2px solid #919191;
 }
+.quicksearch {
+  display: table-row;
+  /* overflow: hidden; */
+  /* z-index: 9; */
+  margin: 0;
+  padding: 0;
+  top: 50px !important;
+  width: 250px !important;
+  text-align: center;
+  position: fixed !important;
+  background-color: #1d1d1d;
+  border: 1px solid #2f2f2f;
+}
+.quicksearchitem {
+  cursor: pointer;
+  display: block;
+  overflow: auto;
+  margin: 0;
+  padding: 10px;
+  border-top: 1px solid #2f2f2f;
+  font-size: 14px;
+  color: white;
+}

@@ -51,6 +51,30 @@ router.get("/orderedBy/:orderedBy/:page_no", async (req, res) => {
 //  @route  Get api/movies/FAVORITES
 //  @desc   Get all movies that have specific title
 //  @access Private
+router.get("/substring/:substring", async (req, res) => {
+  try {
+    const pattern = req.params.substring;
+    let movies = await Movie.find({
+      originalTitle: {
+        $regex: pattern,
+        $options: "i",
+      },
+    }).limit(5);
+
+    if (movies) {
+      res.json({ msg: "", movies, Mlength: movies.length });
+    } else {
+      res.json({ msg: "There is no movies with this id", Mlength: 0 });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//  @route  Get api/movies/FAVORITES
+//  @desc   Get all movies that have specific title
+//  @access Private
 router.get("/favorites/:movies", async (req, res) => {
   try {
     const favorites = req.params.movies.split(",");
@@ -60,7 +84,7 @@ router.get("/favorites/:movies", async (req, res) => {
     });
 
     if (movies) {
-      res.json({ msg: "", movies, Mlength: 1 });
+      res.json({ msg: "", movies, Mlength: movies.length });
     } else {
       res.json({ msg: "There is no movies with this id", Mlength: 0 });
     }

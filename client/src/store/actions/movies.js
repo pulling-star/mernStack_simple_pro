@@ -139,6 +139,27 @@ export const getFavorites = (movies) => async (dispatch) => {
     });
   }
 };
+
+//quick search
+export const quickSearch = (substring) => async (dispatch) => {
+  try {
+    dispatch({
+      type: actionTypes.QUICK_SEARCH_START,
+    });
+
+    const res = await axios.get(`/api/movies/substring/${substring}`);
+    console.log(res.data);
+    dispatch({
+      type: actionTypes.QUICK_SEARCH,
+      payload: res.data.movies,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.QUICK_SEARCH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 // Add like
 export const addLike = (id) => async (dispatch) => {
   try {

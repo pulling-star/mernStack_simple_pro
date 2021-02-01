@@ -22,6 +22,7 @@ function Profile({
         </div>
 
         <div>
+          <h2 style={{ fontFamily: "cursive" }}>Favorites</h2>
           {movies ? (
             movies.map((f) => <FavoriteItem key={f._id} movie={f} />)
           ) : (

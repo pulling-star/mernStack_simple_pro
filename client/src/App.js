@@ -14,6 +14,7 @@ import ItemDetail from "./components/ItemDetail";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Login from "./components/LogIn";
+
 import { setAuthToken } from "./store/utility";
 import { loadUser } from "./store/actions/auth";
 import "./App.css";
@@ -28,7 +29,7 @@ const App = () => {
         <header>
           <Navbar />
         </header>
-        {/* <SearchArea /> */}
+
         <Switch>
           <Route path="/movies" component={ItemDetail} />
           <Route path="/browse-movies" component={ShowSection} />

@@ -35,8 +35,10 @@ function FavoriteItem({ id, movie, loading }) {
         />
       </div>
       <div style={{ display: "inline-block", paddingTop: "50px" }}>
-        <p>{movie.title}</p>
-        <p>{movie.imdbRating}</p>
+        <h3 style={{ fontFamily: "cursive" }}>{movie.title}</h3>
+        <h3 style={{ fontFamily: "cursive" }}>
+          imdbRating: {movie.imdbRating}
+        </h3>
       </div>
     </div>
   );
