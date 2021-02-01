@@ -33,7 +33,7 @@ const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
       )}
       {Mlength > 20 ? <PaginationPart /> : null}
       <div className="showSection">
-        {movies.length > 0
+        {movies
           ? movies.map((mov, index) => (
               <ItemShow
                 key={mov._id}

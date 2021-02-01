@@ -9,7 +9,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_PROFILE,
-  UPDATE_LIKES,
+  // UPDATE_LIKES,
   UPDATE_FAVORITE,
   FAVORITES_ERROR,
 } from "./actionTypes";

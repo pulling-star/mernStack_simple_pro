@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import FavoriteItem from "./FavoriteItem";
 import { getFavorites } from "../store/actions/movies";

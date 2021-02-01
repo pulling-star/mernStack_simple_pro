@@ -9,14 +9,15 @@ import {
   ACCOUNT_DELETED,
   UPDATE_FAVORITE,
   FAVORITES_ERROR,
-  GET_FAVORITES,
+  // GET_FAVORITES,
 } from "../actions/actionTypes";
-
+const user = localStorage.getItem("user");
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
   loading: true,
-  user: null,
+
+  user: JSON.parse(user),
   favorites: [],
   err: "",
 };
@@ -24,6 +25,9 @@ export default function (state = { initialState }, action) {
   const { type, payload } = action;
   switch (type) {
     case USER_LOADED:
+      console.log(payload);
+
+      localStorage.setItem("user", JSON.stringify(payload));
       return {
         ...state,
         isAuthenticated: true,
@@ -34,6 +38,7 @@ export default function (state = { initialState }, action) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       localStorage.setItem("token", payload.token);
+      localStorage.setItem("user", JSON.stringify(payload));
       return {
         ...state,
         ...payload,
@@ -58,6 +63,7 @@ export default function (state = { initialState }, action) {
     case LOGOUT:
     case ACCOUNT_DELETED:
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         token: null,
