@@ -10,7 +10,7 @@ const SearchArea = (props) => {
   const [releaseYear, setReleaseYear] = useState("All");
   const [orderedBy, setOrderedBy] = useState("Latest");
   let history = useHistory();
-  console.log(props.isAuthenticated);
+
   const searchForMovies = props.isAuthenticated
     ? () => {
         props.onSearch(

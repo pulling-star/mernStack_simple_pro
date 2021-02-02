@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../store/actions/alert";
 import { register } from "../store/actions/auth";
 import PropTypes from "prop-types";
 const Register = ({ setAlert, register, isAuthenticated }) => {
+  let history = useHistory();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,11 +22,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       setAlert("passwords do not match", "danger");
     } else {
       register({ name, email, password });
+      history.goForward();
     }
   };
   // Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/" />;
   }
   return (
     <Fragment>

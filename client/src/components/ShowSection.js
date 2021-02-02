@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import ItemShow from "./ItemShow";
 import SearchArea from "./SearchArea";
-import { withRouter } from "react-router";
 
 import PaginationPart from "./PaginationPart";
 const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
@@ -61,4 +60,4 @@ const mapStateToProps = (state) => {
     msg: state.movies.msg,
   };
 };
-export default withRouter(connect(mapStateToProps)(ShowSection));
+export default connect(mapStateToProps)(ShowSection);

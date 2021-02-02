@@ -12,6 +12,7 @@ export default function InputField({ onChange, onfocusout, onfocusin }) {
         onChange={onChange}
         onBlur={onfocusout}
         onFocus={onfocusin}
+        autoComplete="off"
       />
     </div>
   );

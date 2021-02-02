@@ -1,5 +1,6 @@
 import axios from "../../axios-orders";
 import { setAlert } from "./alert";
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -12,6 +13,7 @@ import {
   // UPDATE_LIKES,
   UPDATE_FAVORITE,
   FAVORITES_ERROR,
+  USER_LOADED_START,
 } from "./actionTypes";
 import { setAuthToken } from "../utility";
 
@@ -34,7 +36,11 @@ export const loadUser = () => async (dispatch) => {
         payload: err,
       });
     }
-  }
+  } else
+    dispatch({
+      type: AUTH_ERROR,
+      payload: "auto_signin_error",
+    });
 };
 // REGISTER USER
 export const register = ({ name, email, password }) => async (dispatch) => {

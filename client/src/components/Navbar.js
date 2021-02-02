@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import InputField from "./InputField";
 import { logout } from "../store/actions/auth";
 import { quickSearch } from "../store/actions/movies";
 import QuickSearchList from "./QuickSearchList";
 const Navbar = ({ isAuthenticated, logout, onQuickSearch }) => {
+  const history = useHistory();
   const initialState = {
     quickQearch: "",
   };
@@ -65,7 +66,10 @@ const Navbar = ({ isAuthenticated, logout, onQuickSearch }) => {
             <button
               style={{ paddingLeft: "10px" }}
               className="btn"
-              onClick={logout}
+              onClick={() => {
+                logout();
+                history.replace("/");
+              }}
             >
               Logout
             </button>

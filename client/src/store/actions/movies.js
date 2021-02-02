@@ -35,6 +35,19 @@ export const fetchMoviesFailed = () => {
     type: actionTypes.FETCH_MOVIES_FAILED,
   };
 };
+export const getAMovie = (title) => {
+  return (dispatch) => {
+    axios
+      .get("/api/movies/title/" + title)
+      .then((res) => {
+        dispatch(setMovies(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(fetchMoviesFailed());
+      });
+  };
+};
 export const getMovies = (
   { searchTerm, orderedBy, releaseYear, rating, genre },
   page_no

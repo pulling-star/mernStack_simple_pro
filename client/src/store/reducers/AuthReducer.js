@@ -2,6 +2,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  USER_LOADED_START,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -17,7 +18,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
 
-  user: JSON.parse(user),
+  user: localStorage.getItem("user"),
   favorites: [],
   err: "",
 };
@@ -26,8 +27,6 @@ export default function (state = { initialState }, action) {
   switch (type) {
     case USER_LOADED:
       console.log(payload);
-
-      localStorage.setItem("user", JSON.stringify(payload));
       return {
         ...state,
         isAuthenticated: true,
@@ -41,7 +40,7 @@ export default function (state = { initialState }, action) {
       localStorage.setItem("user", JSON.stringify(payload));
       return {
         ...state,
-        ...payload,
+        user: payload,
         isAuthenticated: true,
         loading: false,
       };
@@ -64,6 +63,7 @@ export default function (state = { initialState }, action) {
     case ACCOUNT_DELETED:
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("movies");
       return {
         ...state,
         token: null,

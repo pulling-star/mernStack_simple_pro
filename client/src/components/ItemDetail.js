@@ -5,19 +5,31 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { addToFavorite } from "../store/actions/auth";
 import Spinner from "./Spinner";
+import { Redirect } from "react-router-dom";
 function ItemDetail({
   loading,
   user,
   movies,
   onFavorites,
   location: {
-    state: { position },
+    state: { position, m },
   },
 }) {
   console.log(movies);
+  console.log(m);
+
+  let movie;
+  if (m) {
+    movie = m;
+  } else if (movies) {
+    movie = movies[position];
+  }
   const [favorite, setFavorite] = useState(
-    user.favorites.some((item) => item.movieId === movies[position]._id)
+    user.favorites.some((item) => item.movieId === movie._id)
   );
+  if (!movie) {
+    return <Redirect to="/" />;
+  }
 
   const favoriteElement = loading ? (
     <Spinner />
@@ -28,7 +40,7 @@ function ItemDetail({
         icon={faStar}
         onClick={() => {
           setFavorite(!favorite);
-          onFavorites(movies[position]);
+          onFavorites(movie);
         }}
         className="icon-star"
       />
@@ -40,7 +52,7 @@ function ItemDetail({
         icon={faStar}
         onClick={() => {
           setFavorite(!favorite);
-          onFavorites(movies[position]);
+          onFavorites(movie);
         }}
         className="white-star"
       />
@@ -56,22 +68,22 @@ function ItemDetail({
     >
       <div className="ItemDetailView">
         <div>
-          <img width="260" height="390" src={movies[position].posterurl} />
+          <img width="260" height="390" src={movie.posterurl} />
 
           {favoriteElement}
         </div>
 
         <div style={{ color: "white", paddingLeft: "120px" }}>
           <div style={{ marginBottom: "50px" }}>
-            <h1>Darkness Waits</h1>
-            <h2>{movies[position].year}</h2>
-            <h2>{movies[position].genres[0]}</h2>
+            <h1>{movie.originalTitle || movie.title}</h1>
+            <h2>{movie.year}</h2>
+            <h2>{movie.genres[0]}</h2>
           </div>
           <div>
             <h2>
-              Likes: {movies[position].likes.length}
+              Likes: {movie.likes.length}
               <FontAwesomeIcon
-                onClick={() => onFavorites(movies[position])}
+                onClick={() => onFavorites(movie)}
                 icon={faHeart}
                 className="icon-heart"
               />
@@ -79,7 +91,7 @@ function ItemDetail({
           </div>
           <div style={{ display: "flex" }}>
             <h2 style={{ marginRight: "20px" }}>Imdb</h2>
-            <h2>{movies[position].imdbRating}</h2>
+            <h2>{movie.imdbRating}</h2>
             <FontAwesomeIcon icon={faStar} className="icon-star" />
           </div>
         </div>
@@ -136,12 +148,12 @@ function ItemDetail({
       <div style={{ padding: "20px 200px", display: "flex" }}>
         <div style={{ color: "white", width: "60%" }}>
           <h2>story line</h2>
-          <p style={{ color: "#919191" }}>{movies[position].storyline}</p>
+          <p style={{ color: "#919191" }}>{movie.storyline}</p>
         </div>
         <div style={{ marginLeft: "100px" }}>
           <h2 style={{ color: "white" }}>cast</h2>
           <div>
-            {movies[position].actors.map((a, index) => (
+            {movie.actors.map((a, index) => (
               <p
                 key={index}
                 style={{

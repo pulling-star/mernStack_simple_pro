@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import QuickSearchItem from "./QuickSearchItem";
 import { connect } from "react-redux";
-function QuickSearchList({ moviesQuickSearch }) {
+import { NavLink, useLocation, useHistory } from "react-router-dom";
+function QuickSearchList({ moviesQuickSearch, onGetAMovie }) {
+  const location = useLocation();
+  const history = useHistory();
   let list = moviesQuickSearch
     ? moviesQuickSearch.map((m) => (
-        <li key={m._id}>
+        <li
+          key={m._id}
+          onMouseDown={() => {
+            history.push({
+              pathname: "/movies",
+
+              state: { m: m },
+            });
+          }}
+        >
           <QuickSearchItem
             name={m.originalTitle}
             img={m.posterurl}
@@ -20,6 +32,7 @@ function QuickSearchList({ moviesQuickSearch }) {
     </div>
   );
 }
+
 const mapStateToProps = (state) => {
   return {
     moviesQuickSearch: state.movies.moviesQuickSearch,

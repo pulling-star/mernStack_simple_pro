@@ -38,7 +38,7 @@ const setMov = (state, action) => {
     orderedBy: action.orderedBy,
     page_no: action.page_no,
     error: false,
-    loading: false,
+    loading: true,
   });
 };
 const fetchMovFailed = (state, action) => {

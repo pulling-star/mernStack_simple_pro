@@ -882,6 +882,7 @@ ul.pagination li a.current {
 }
 .quicksearchitem {
   cursor: pointer;
+
   display: block;
   overflow: auto;
   margin: 0;
@@ -889,4 +890,7 @@ ul.pagination li a.current {
   border-top: 1px solid #2f2f2f;
   font-size: 14px;
   color: white;
+}
+.quicksearchitem:hover {
+  background-color: #5a5a5a;
 }
