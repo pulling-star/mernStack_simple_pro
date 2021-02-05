@@ -12,17 +12,14 @@ function ItemDetail({
   movies,
   onFavorites,
   location: {
-    state: { position, m },
+    state: { m },
   },
 }) {
-  console.log(movies);
   console.log(m);
 
   let movie;
   if (m) {
     movie = m;
-  } else if (movies) {
-    movie = movies[position];
   }
   const [favorite, setFavorite] = useState(
     user.favorites.some((item) => item.movieId === movie._id)
@@ -68,7 +65,7 @@ function ItemDetail({
     >
       <div className="ItemDetailView">
         <div>
-          <img width="260" height="390" src={movie.posterurl} />
+          <img alt="" width="260" height="390" src={movie.posterurl} />
 
           {favoriteElement}
         </div>

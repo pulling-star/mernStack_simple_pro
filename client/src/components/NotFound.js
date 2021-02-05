@@ -1,6 +1,7 @@
 import React from "react";
-
-const NotFound = () => {
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+const NotFound = ({ isAuthenticated }) => {
   return (
     <div>
       <h1
@@ -8,13 +9,20 @@ const NotFound = () => {
       >
         Error! Not found (this page does not exist).
       </h1>
-      <h3 style={{ color: "#919191", textAlign: "center" }}>
-        {" "}
-        Please LOGIN to search for your recommend movies or Create a Free
-        Account (it takes few seconds).
-      </h3>
+      {isAuthenticated ? (
+        <h3 style={{ color: "#919191", textAlign: "center" }}>
+          {" "}
+          Please <Link to="/login">(LOGIN)</Link> to search for your recommend
+          movies or <Link to="/register"> Create a Free Account </Link> (it
+          takes few seconds)
+        </h3>
+      ) : null}
     </div>
   );
 };
-
-export default NotFound;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+  };
+};
+export default connect(mapStateToProps)(NotFound);

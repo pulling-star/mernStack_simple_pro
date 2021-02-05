@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const ItemShow = ({ imgSrc, rating, genres, title, year, position }) => {
+const ItemShow = ({ imgSrc, rating, genres, title, year, movie }) => {
   return (
     <div>
       <Link
         to={{
           pathname: "/movies",
           state: {
-            position: position,
+            m: movie,
           },
         }}
       >

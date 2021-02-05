@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
-import qs from "qs";
 export const setMovies = (Movies, reqs) => {
   if (Movies.msg === "") {
     return {
@@ -30,6 +29,35 @@ export const setMovies = (Movies, reqs) => {
     };
   }
 };
+
+export const setRatingMovies = (Movies, reqs) => {
+  if (Movies.msg === "") {
+    return {
+      msg: "",
+      type: actionTypes.SET_RATING_MOVIES,
+      RatingMovies: Movies.movies,
+    };
+  }
+};
+export const setActionMovies = (Movies, reqs) => {
+  if (Movies.msg === "") {
+    return {
+      msg: "",
+      type: actionTypes.SET_ACTION_MOVIES,
+      ActionMovies: Movies.movies,
+    };
+  }
+};
+
+export const setLatestMovies = (Movies, reqs) => {
+  if (Movies.msg === "") {
+    return {
+      msg: "",
+      type: actionTypes.SET_LATEST_MOVIES,
+      LatestMovies: Movies.movies,
+    };
+  }
+};
 export const fetchMoviesFailed = () => {
   return {
     type: actionTypes.FETCH_MOVIES_FAILED,
@@ -50,7 +78,8 @@ export const getAMovie = (title) => {
 };
 export const getMovies = (
   { searchTerm, orderedBy, releaseYear, rating, genre },
-  page_no
+  page_no,
+  HomeMovies
 ) => {
   return (dispatch) => {
     let queryParams;
@@ -112,8 +141,7 @@ export const getMovies = (
         page_no;
     }
     console.log(queryParams);
-    // const queryParams =
-    //   "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
+
     const searchReqs = {
       searchTerm,
       orderedBy,
@@ -122,10 +150,23 @@ export const getMovies = (
       genre,
       page_no,
     };
+
     axios
       .get("/api/movies/" + queryParams)
       .then((res) => {
-        dispatch(setMovies(res.data, searchReqs));
+        if (HomeMovies) {
+          if (orderedBy === "rating") {
+            dispatch(setRatingMovies(res.data, searchReqs));
+          }
+          if (orderedBy === "year") {
+            dispatch(setLatestMovies(res.data, searchReqs));
+          }
+          if (genre === "Action") {
+            dispatch(setActionMovies(res.data, searchReqs));
+          }
+        } else {
+          dispatch(setMovies(res.data, searchReqs));
+        }
       })
       .catch((err) => {
         console.log(err);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 function FavoriteItem({ id, movie, loading }) {
@@ -25,6 +25,7 @@ function FavoriteItem({ id, movie, loading }) {
       >
         <img
           src={movie.posterurl}
+          alt=""
           width="150px"
           height="150px"
           style={{

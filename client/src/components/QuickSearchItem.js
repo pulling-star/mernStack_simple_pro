@@ -3,7 +3,7 @@ import React from "react";
 function QuickSearchItem({ name, img, year }) {
   return (
     <div className="quicksearchitem">
-      <img style={{ float: "left" }} width="43px" src={img} />
+      <img style={{ float: "left" }} alt="" width="43px" src={img} />
       <h2>{name}</h2>
       <p>{year}</p>
     </div>

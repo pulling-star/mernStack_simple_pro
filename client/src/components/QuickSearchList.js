@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import QuickSearchItem from "./QuickSearchItem";
 import { connect } from "react-redux";
-import { NavLink, useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 function QuickSearchList({ moviesQuickSearch, onGetAMovie }) {
-  const location = useLocation();
   const history = useHistory();
   let list = moviesQuickSearch
     ? moviesQuickSearch.map((m) => (

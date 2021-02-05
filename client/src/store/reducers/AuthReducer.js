@@ -2,7 +2,6 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
-  USER_LOADED_START,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -12,7 +11,7 @@ import {
   FAVORITES_ERROR,
   // GET_FAVORITES,
 } from "../actions/actionTypes";
-const user = localStorage.getItem("user");
+// const user = localStorage.getItem("user");
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,

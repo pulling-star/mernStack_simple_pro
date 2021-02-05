@@ -7,15 +7,15 @@ import { quickSearch } from "../store/actions/movies";
 import QuickSearchList from "./QuickSearchList";
 const Navbar = ({ isAuthenticated, logout, onQuickSearch }) => {
   const history = useHistory();
-  const initialState = {
-    quickQearch: "",
-  };
+  // const initialState = {
+  //   quickQearch: "",
+  // };
   const [listDisplay, setListDisplay] = useState(false);
   const onChange = (e) => {
     if (e.target.value) {
       onQuickSearch(e.target.value);
     } else {
-      onQuickSearch("zz");
+      onQuickSearch("");
     }
   };
   return (

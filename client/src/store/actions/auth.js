@@ -13,7 +13,6 @@ import {
   // UPDATE_LIKES,
   UPDATE_FAVORITE,
   FAVORITES_ERROR,
-  USER_LOADED_START,
 } from "./actionTypes";
 import { setAuthToken } from "../utility";
 

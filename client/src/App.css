@@ -629,7 +629,7 @@ a:hover .button-green {
 }
 .icon-star {
   position: relative;
-  left: 70px;
+  left: 40%;
   width: 100%;
   color: #6ac045;
   font-size: xx-large;
@@ -893,4 +893,29 @@ ul.pagination li a.current {
 }
 .quicksearchitem:hover {
   background-color: #5a5a5a;
+}
+.home {
+  padding-top: 150px;
+  color: white;
+  text-align: center;
+}
+.homeLists {
+  height: 250px;
+  margin-top: 20px;
+  gap: 10px;
+}
+.homeLists img {
+  width: 100%;
+
+  width: 240px !important;
+  height: 280px;
+  /* object-fit: cover; */
+}
+.homeLists a:hover {
+  border: 9px solid #6ac045;
+  /* overflow: hidden; */
+}
+
+.homeLists .icon-star {
+  left: 1%;
 }

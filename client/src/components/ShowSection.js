@@ -41,7 +41,7 @@ const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
                 genres={mov.genres}
                 title={mov.originalTitle ? mov.originalTitle : mov.title}
                 year={mov.year}
-                position={index}
+                movie={mov}
               />
             ))
           : null}
@@ -53,7 +53,6 @@ const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
 
 const mapStateToProps = (state) => {
   return {
-    // orders: state.order.orders,
     movies: state.movies.Movies,
     Mlength: state.movies.Mlength,
     orderedBy: state.movies.orderedBy,

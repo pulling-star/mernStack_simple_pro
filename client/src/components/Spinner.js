@@ -10,6 +10,7 @@ export default () => (
         margin: "auto",
         display: "block",
         backgroundColor: "#1d1d1d",
+        paddingTop: "50px",
       }}
       alt="Loading..."
     />

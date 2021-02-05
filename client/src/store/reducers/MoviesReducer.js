@@ -12,6 +12,9 @@ const initialState = {
   orderedBy: "Latest",
 
   Movies: JSON.parse(m),
+  LatestMovies: [],
+  RatingMovies: [],
+  ActionMovies: [],
   Mlength: 0,
   error: false,
   page_no: 1,
@@ -38,7 +41,7 @@ const setMov = (state, action) => {
     orderedBy: action.orderedBy,
     page_no: action.page_no,
     error: false,
-    loading: true,
+    loading: false,
   });
 };
 const fetchMovFailed = (state, action) => {
@@ -88,6 +91,18 @@ const reducer = (state = initialState, action) => {
         page_no: 1,
         msg: "",
       };
+    case actionTypes.CLEAR_MOVIES:
+      return {
+        ...state,
+        loading: false,
+        Movies: [],
+      };
+    case actionTypes.SET_RATING_MOVIES:
+      return { ...state, loading: false, RatingMovies: action.RatingMovies };
+    case actionTypes.SET_LATEST_MOVIES:
+      return { ...state, loading: false, LatestMovies: action.LatestMovies };
+    case actionTypes.SET_ACTION_MOVIES:
+      return { ...state, loading: false, ActionMovies: action.ActionMovies };
     default:
       return state;
   }

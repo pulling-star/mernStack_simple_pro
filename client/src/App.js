@@ -7,9 +7,9 @@ import {
   Redirect,
 } from "react-router-dom";
 import store from "./store/store";
+import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
-import SearchArea from "./components/SearchArea";
 import Spinner from "./components/Spinner";
 import ShowSection from "./components/ShowSection";
 import ItemDetail from "./components/ItemDetail";
@@ -43,7 +43,7 @@ class App extends Component {
           <Route path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route exact path="/" component={ShowSection} />
+          <Route exact path="/" component={Home} />
           <Route path="*" component={NotFound} />
         </Switch>
       );
@@ -78,7 +78,7 @@ class App extends Component {
               );
             }}
           />
-          <Route exact path="/" component={ShowSection} />
+          <Route exact path="/" component={Home} />
 
           <Route path="*" component={NotFound} />
         </Switch>
