@@ -740,6 +740,8 @@ ul.pagination li a.current {
 .movieTitle,
 .movieYear {
   color: #fff;
+  max-width: 200px;
+  height: fit-content;
   font-weight: 700;
   font-size: 18px;
   display: block;
@@ -748,7 +750,7 @@ ul.pagination li a.current {
   -webkit-transition: color 0.15s ease-in-out;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: unset;
   border: 0;
 }
 .movieYear {

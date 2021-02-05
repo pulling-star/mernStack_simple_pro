@@ -38,6 +38,16 @@ const Navbar = ({ isAuthenticated, logout, onQuickSearch }) => {
             <i className="fas fa-user-circle text-primary" />
             Home
           </Link>
+          {isAuthenticated ? (
+            <Link
+              style={{ paddingLeft: "10px" }}
+              to="/browse-movies"
+              className="btn "
+            >
+              <i className="fas fa-user-circle text-primary" />
+              Browse-movies
+            </Link>
+          ) : null}
           {!isAuthenticated ? (
             <Link style={{ paddingLeft: "10px" }} to="/login" className="btn ">
               <i className="fab fa-black-tie text-primary" />
