@@ -8,9 +8,7 @@ const Home = () => {
   return (
     <div className="home">
       <h1>Find Your favorite movie</h1>
-      <p>
-        you can and find your favorite movie based on rating, genre, or year{" "}
-      </p>
+      <p>you can find your favorite movie based on rating, genre, or year </p>
       <div style={{ marginTop: "30px" }}>
         <h2>
           Some heighest rating movies{" "}

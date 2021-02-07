@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { addToFavorite } from "../store/actions/auth";
 import Spinner from "./Spinner";
+
 import { Redirect } from "react-router-dom";
 function ItemDetail({
   loading,
@@ -15,15 +16,14 @@ function ItemDetail({
     state: { m },
   },
 }) {
-  console.log(m);
-
   let movie;
   if (m) {
     movie = m;
   }
   const [favorite, setFavorite] = useState(
-    user.favorites.some((item) => item.movieId === movie._id)
+    user ? user.favorites.some((item) => item.movieId === movie._id) : null
   );
+
   if (!movie) {
     return <Redirect to="/" />;
   }

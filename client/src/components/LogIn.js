@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -21,10 +21,17 @@ const Login = ({ login, isAuthenticated, location }) => {
 
   // Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return (
+      <Redirect
+        to={{
+          pathname: location.state.prevpath,
+          state: { m: location.state.m },
+        }}
+      />
+    );
   }
   return (
-    <Fragment>
+    <div>
       <div className="register">
         <h1 className="large text-primary">Sign In</h1>
 
@@ -49,6 +56,7 @@ const Login = ({ login, isAuthenticated, location }) => {
               value={password}
               onChange={(e) => onChange(e)}
               required
+              autoComplete="off"
             />
           </div>
           <input type="submit" className="button-reg" value="Login" />
@@ -60,7 +68,7 @@ const Login = ({ login, isAuthenticated, location }) => {
           </Link>
         </p>
       </div>
-    </Fragment>
+    </div>
   );
 };
 Login.propTypes = {

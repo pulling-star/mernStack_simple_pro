@@ -26,6 +26,7 @@ export default function (state = { initialState }, action) {
   switch (type) {
     case USER_LOADED:
       console.log(payload);
+      localStorage.setItem("user", payload);
       return {
         ...state,
         isAuthenticated: true,
@@ -36,11 +37,12 @@ export default function (state = { initialState }, action) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       localStorage.setItem("token", payload.token);
-      localStorage.setItem("user", JSON.stringify(payload));
+
+      console.log(payload);
       return {
         ...state,
-        user: payload,
-        isAuthenticated: true,
+        user: localStorage.getItem("user"),
+        // isAuthenticated: true,
         loading: false,
       };
     case UPDATE_FAVORITE:

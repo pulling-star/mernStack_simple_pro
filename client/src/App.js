@@ -56,13 +56,14 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route
             path="/profile"
-            render={() => {
+            render={(props) => {
               return this.props.loading ? (
                 <Spinner />
               ) : (
                 <Redirect
                   to={{
                     pathname: "/login",
+                    state: { prevpath: "/profile" },
                   }}
                 />
               );
@@ -70,11 +71,16 @@ class App extends Component {
           />
           <Route
             path="/movies"
-            render={() => {
+            render={(props) => {
               return this.props.loading ? (
                 <Spinner />
               ) : (
-                <Redirect to="/login" />
+                <Redirect
+                  to={{
+                    pathname: "/login",
+                    state: { prevpath: "/movies", m: props.location.state.m },
+                  }}
+                />
               );
             }}
           />

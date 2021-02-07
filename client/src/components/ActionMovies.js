@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { getMovies } from "../store/actions/movies";
 import ItemShow from "./ItemShow.js";
 import Spinner from "./Spinner.js";
 import { connect } from "react-redux";
-import * as actionTypes from "../store/actions/actionTypes";
 const ActionMovies = ({
   choise,
   ActionMovies,
