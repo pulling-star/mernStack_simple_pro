@@ -20,7 +20,7 @@ const Navbar = ({ isAuthenticated, logout, onQuickSearch }) => {
   };
   return (
     <div className="navbar">
-      <span className="header">search for your favorite movies</span>
+      <span className="header">search your favorite movies</span>
 
       <div style={{ float: "right", display: "flex", paddingRight: "15% " }}>
         <div>
