@@ -25,7 +25,7 @@ import "./App.css";
 class App extends Component {
   componentDidMount() {
     setAuthToken(localStorage.token);
-    console.log(this.props.loading);
+
     store.dispatch(loadUser());
   }
 

@@ -96,9 +96,13 @@ router.post("/signIn", async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ errors: [{ msg: "Email not found" }] });
+      return (error = res
+        .status(404)
+        .send({ errors: [{ msg: "Email not found" }] }));
     }
+
     const isMatch = await user.comparePassword(password);
+
     if (!isMatch) {
       return res
         .status(400)
@@ -108,8 +112,7 @@ router.post("/signIn", async (req, res) => {
     const token = jwt.sign({ user_id: user._id }, "mysecrettoken");
     res.send({ token });
   } catch (error) {
-    console.log(error.message);
-    res.status("500").send("Server error  ");
+    return res.status(500).json({ errors: [{ msg: "Server error" }] });
   }
 });
 

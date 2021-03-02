@@ -25,7 +25,7 @@ UserSchema.methods.comparePassword = function (candidatePassword) {
         return reject(err);
       }
       if (!isMatched) {
-        return reject(false);
+        return resolve(false);
       }
       return resolve(true);
     });

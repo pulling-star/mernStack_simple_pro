@@ -18,7 +18,6 @@ import { setAuthToken } from "../utility";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
-  console.log(localStorage);
   if (localStorage.getItem("token")) {
     setAuthToken(localStorage.getItem("token"));
 
@@ -86,11 +85,15 @@ export const login = ({ email, password }) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (error) {
+    console.log(error);
     const err = error.response.data.errors;
+    console.log(err[0].msg);
     if (err) {
-      err.array.forEach((e) => dispatch(setAlert(error.msg, "danger")));
+      err.forEach((e) => dispatch(setAlert(error.msg, "danger")));
+      // dispatch(setAlert(err.msg, "danger"));
     }
-    dispatch({ type: LOGIN_FAIL });
+
+    dispatch({ type: LOGIN_FAIL, err: err[0].msg });
   }
 };
 

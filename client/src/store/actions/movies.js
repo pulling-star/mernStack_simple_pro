@@ -140,7 +140,6 @@ export const getMovies = (
         "/" +
         page_no;
     }
-    console.log(queryParams);
 
     const searchReqs = {
       searchTerm,

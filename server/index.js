@@ -19,7 +19,7 @@ app.get("/", (req, res) => res.send("API Running"));
 mongoose.set("useFindAndModify", false);
 const PORT = process.env.PORT || 5000;
 mongoose
-  .connect(CONNECTIONURL, {
+  .connect(process.env.MONGODB_URL || CONNECTIONURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

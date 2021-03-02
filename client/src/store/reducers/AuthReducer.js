@@ -25,7 +25,6 @@ export default function (state = { initialState }, action) {
   const { type, payload } = action;
   switch (type) {
     case USER_LOADED:
-      console.log(payload);
       localStorage.setItem("user", payload);
       return {
         ...state,
@@ -38,7 +37,6 @@ export default function (state = { initialState }, action) {
     case REGISTER_SUCCESS:
       localStorage.setItem("token", payload.token);
 
-      console.log(payload);
       return {
         ...state,
         user: localStorage.getItem("user"),
@@ -65,12 +63,14 @@ export default function (state = { initialState }, action) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("movies");
+
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
         user: null,
+        err: action.err,
       };
     default:
       return state;
