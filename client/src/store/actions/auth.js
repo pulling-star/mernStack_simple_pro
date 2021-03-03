@@ -51,7 +51,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     };
 
     const body = JSON.stringify(newUser);
-    const res = await axios.post("/api/users", body, config);
+    const res = await axios.post("/api/users/signUp", body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
@@ -59,10 +59,11 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     dispatch(loadUser());
   } catch (error) {
     const err = error.response.data.errors;
+    console.log(err);
     if (err) {
-      err.array.forEach((e) => dispatch(setAlert(error.msg, "danger")));
+      err.forEach((e) => dispatch(setAlert(error.msg, "danger")));
     }
-    dispatch({ type: REGISTER_FAIL });
+    dispatch({ type: REGISTER_FAIL, err: err[0].msg });
   }
 };
 // LOGIN USER

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setAlert } from "../store/actions/alert";
 import { register } from "../store/actions/auth";
 import PropTypes from "prop-types";
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ err, setAlert, register, isAuthenticated }) => {
   let history = useHistory();
 
   const [formData, setFormData] = useState({
@@ -35,6 +35,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <h1 className="large text-primary">Sign Up</h1>
 
         <form className="form" onSubmit={(e) => onSubmit(e)}>
+          {err ? <div className="alert alert-danger">{err}</div> : null}
           <div className="Input">
             <input
               className="InputElement"
@@ -46,6 +47,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               onChange={(e) => onChange(e)}
             />
           </div>
+
           <div className="Input">
             <input
               className="InputElement"
@@ -105,5 +107,6 @@ Register.propTypes = {
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  err: state.auth.err,
 });
 export default connect(mapStateToProps, { setAlert, register })(Register);
