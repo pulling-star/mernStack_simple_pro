@@ -14,6 +14,12 @@ const CONNECTIONURL =
 
 app.use("/api/movies", movies);
 app.use("/api/users", users);
+// app.use((err, req, res, next) => {
+//   //  res.send(err.returnstatus);
+
+//   // Sends response
+//   return res.json({ message: err.message });
+// });
 
 app.get("/", (req, res) => res.send("API Running"));
 mongoose.set("useFindAndModify", false);

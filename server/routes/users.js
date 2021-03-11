@@ -87,7 +87,7 @@ router.post(
 //  @route  Post api/users/signin
 //  @desc   signin route
 //  @access Public
-router.post("/signIn", async (req, res) => {
+router.post("/signIn", async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -96,9 +96,10 @@ router.post("/signIn", async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (!user) {
-      return (error = res
-        .status(404)
-        .send({ errors: [{ msg: "Email not found" }] }));
+      return res.status(404).json({ errors: [{ msg: "Email not found" }] });
+      // const err = new Error("The product cannot be found");
+      // err.status = 404;
+      // next(err);
     }
 
     const isMatch = await user.comparePassword(password);
