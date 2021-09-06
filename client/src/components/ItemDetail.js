@@ -59,17 +59,15 @@ function ItemDetail({
     <div
       style={{
         background: "#1d1d1d",
-        top: "50px",
+        top: "150px",
         position: "relative",
       }}
     >
       <div className="ItemDetailView">
         <div>
           <img alt="" width="260" height="390" src={movie.posterurl} />
-
           {favoriteElement}
         </div>
-
         <div style={{ color: "white", paddingLeft: "120px" }}>
           <div style={{ marginBottom: "50px" }}>
             <h1>{movie.originalTitle || movie.title}</h1>
@@ -142,6 +140,7 @@ function ItemDetail({
           </div>
         </div>
       </div>
+
       <div style={{ padding: "20px 200px", display: "flex" }}>
         <div style={{ color: "white", width: "60%" }}>
           <h2>story line</h2>

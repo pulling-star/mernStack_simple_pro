@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import ItemShow from "./ItemShow";
 import SearchArea from "./SearchArea";
 
 import PaginationPart from "./PaginationPart";
-const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
+const ShowSection = ({ movies, Mlength, orderedBy, msg, history }) => {
   return (
-    <div style={{ background: "#1d1d1d" }}>
+    <div style={{ background: "#1d1d1d", textAlign: "center" }}>
       <SearchArea />
       {Mlength > 0 ? (
         <h2
@@ -50,7 +50,6 @@ const ShowSection = ({ movies, Mlength, orderedBy, msg }) => {
     </div>
   );
 };
-
 const mapStateToProps = (state) => {
   return {
     movies: state.movies.Movies,

@@ -22,69 +22,59 @@ const Navbar = ({ isAuthenticated, logout, onQuickSearch }) => {
     <div className="navbar">
       <span className="header">search your favorite movies</span>
 
-      <div style={{ float: "right", display: "flex", paddingRight: "15% " }}>
-        <div>
-          <InputField
-            onChange={onChange}
-            onfocusout={() => setListDisplay(false)}
-            onfocusin={() => {
-              setListDisplay(true);
-            }}
-          />
-          {listDisplay ? <QuickSearchList /> : null}
-        </div>
-        <div>
-          <Link style={{ paddingLeft: "10px" }} to="/" className="btn ">
+      {/* <div style={{ display: "flex", float: "right", marginRight: "10px" }}> */}
+      <InputField
+        onChange={onChange}
+        onfocusout={() => setListDisplay(false)}
+        onfocusin={() => {
+          setListDisplay(true);
+        }}
+      />
+      {listDisplay ? <QuickSearchList /> : null}
+
+      <div className="links">
+        <Link style={{ paddingLeft: "10px" }} to="/" className="btn ">
+          <i className="fas fa-user-circle text-primary" />
+          Home
+        </Link>
+        {isAuthenticated ? (
+          <Link
+            style={{ paddingLeft: "10px" }}
+            to="/browse-movies"
+            className="btn "
+          >
             <i className="fas fa-user-circle text-primary" />
-            Home
+            Browse-movies
           </Link>
-          {isAuthenticated ? (
-            <Link
-              style={{ paddingLeft: "10px" }}
-              to="/browse-movies"
-              className="btn "
-            >
-              <i className="fas fa-user-circle text-primary" />
-              Browse-movies
-            </Link>
-          ) : null}
-          {!isAuthenticated ? (
-            <Link style={{ paddingLeft: "10px" }} to="/login" className="btn ">
-              <i className="fab fa-black-tie text-primary" />
-              Login
-            </Link>
-          ) : (
-            <Link
-              style={{ paddingLeft: "10px" }}
-              to="/profile"
-              className="btn "
-            >
-              <i className="fab fa-black-tie text-primary" />
-              Profile
-            </Link>
-          )}
-          {!isAuthenticated ? (
-            <Link
-              style={{ paddingLeft: "10px" }}
-              to="/register"
-              className="btn"
-            >
-              <i className="fas fa-graduation-cap text-primary" />
-              Register
-            </Link>
-          ) : (
-            <button
-              style={{ paddingLeft: "10px" }}
-              className="btn"
-              onClick={() => {
-                logout();
-                history.replace("/");
-              }}
-            >
-              Logout
-            </button>
-          )}
-        </div>
+        ) : null}
+        {!isAuthenticated ? (
+          <Link style={{ paddingLeft: "10px" }} to="/login">
+            <i className="fab fa-black-tie text-primary" />
+            Login
+          </Link>
+        ) : (
+          <Link style={{ paddingLeft: "10px" }} to="/profile">
+            <i className="fab fa-black-tie text-primary" />
+            Profile
+          </Link>
+        )}
+        {!isAuthenticated ? (
+          <Link style={{ paddingLeft: "10px" }} to="/register">
+            <i className="fas fa-graduation-cap text-primary" />
+            Register
+          </Link>
+        ) : (
+          <button
+            style={{ paddingLeft: "10px" }}
+            className="btn"
+            onClick={() => {
+              logout();
+              history.replace("/");
+            }}
+          >
+            Logout
+          </button>
+        )}
       </div>
     </div>
   );

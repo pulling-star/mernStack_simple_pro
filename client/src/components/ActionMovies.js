@@ -16,97 +16,23 @@ const ActionMovies = ({
   }, [onGetMovies, choise]);
 
   return (
-    <div
-      style={{
-        width: "70%",
-        marginLeft: "15%",
-        marginTop: "10px",
-
-        borderTop: "1px solid gray",
-      }}
-    >
+    <div>
       {ActionMovies.length > 0 ? (
-        <ul className="homeLists">
-          <li
-            style={{
-              display: "inline-block",
-            }}
-          >
-            <ItemShow
-              imgSrc={ActionMovies[0].posterurl}
-              rating={ActionMovies[0].imdbRating}
-              genres={ActionMovies[0].genres}
-              title={
-                ActionMovies[0].originalTitle
-                  ? ActionMovies[0].originalTitle
-                  : ActionMovies[0].title
-              }
-              year={ActionMovies[0].year}
-              movie={ActionMovies[0]}
-            />
-          </li>
-          <li
-            style={{
-              display: "inline-block",
-
-              marginLeft: "10px",
-            }}
-          >
-            <ItemShow
-              imgSrc={ActionMovies[1].posterurl}
-              rating={ActionMovies[1].imdbRating}
-              genres={ActionMovies[1].genres}
-              title={
-                ActionMovies[1].originalTitle
-                  ? ActionMovies[1].originalTitle
-                  : ActionMovies[1].title
-              }
-              year={ActionMovies[1].year}
-              movie={ActionMovies[1]}
-            />
-          </li>
-          <li
-            style={{
-              display: "inline-block",
-
-              marginLeft: "10px",
-            }}
-          >
-            <ItemShow
-              imgSrc={ActionMovies[2].posterurl}
-              rating={ActionMovies[2].imdbRating}
-              genres={ActionMovies[2].genres}
-              title={
-                ActionMovies[2].originalTitle
-                  ? ActionMovies[2].originalTitle
-                  : ActionMovies[2].title
-              }
-              year={ActionMovies[2].year}
-              movie={ActionMovies[2]}
-            />{" "}
-          </li>
-          <li
-            style={{
-              display: "inline-block",
-
-              marginLeft: "10px",
-            }}
-          >
-            {" "}
-            <ItemShow
-              imgSrc={ActionMovies[3].posterurl}
-              rating={ActionMovies[3].imdbRating}
-              genres={ActionMovies[3].genres}
-              title={
-                ActionMovies[3].originalTitle
-                  ? ActionMovies[3].originalTitle
-                  : ActionMovies[3].title
-              }
-              year={ActionMovies[3].year}
-              movie={ActionMovies[3]}
-            />
-          </li>
-        </ul>
+        <div className="showSection" style={{ marginTop: "30px" }}>
+          {ActionMovies
+            ? ActionMovies.slice(0, 5).map((mov, index) => (
+                <ItemShow
+                  key={mov._id}
+                  imgSrc={mov.posterurl}
+                  rating={mov.imdbRating}
+                  genres={mov.genres}
+                  title={mov.originalTitle ? mov.originalTitle : mov.title}
+                  year={mov.year}
+                  movie={mov}
+                />
+              ))
+            : null}
+        </div>
       ) : (
         <Spinner />
       )}

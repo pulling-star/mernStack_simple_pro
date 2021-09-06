@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/movies";
 import { useHistory } from "react-router-dom";
@@ -10,7 +10,14 @@ const SearchArea = (props) => {
   const [releaseYear, setReleaseYear] = useState("All");
   const [orderedBy, setOrderedBy] = useState("Latest");
   let history = useHistory();
-
+  useEffect(() => {
+    console.log("SerchArea", props.movies);
+    const location = {
+      pathname: "/browse-movies",
+      state: { movies: props.movies },
+    };
+    history.push(location);
+  }, [props.movies.length]);
   const searchForMovies = props.isAuthenticated
     ? () => {
         props.onSearch(
@@ -23,7 +30,6 @@ const SearchArea = (props) => {
           },
           1
         );
-        history.push("/browse-movies");
       }
     : () => history.push("/login");
   return (
@@ -36,8 +42,6 @@ const SearchArea = (props) => {
       <div className="container">
         <div
           style={{
-            width: "125%",
-            display: "inline-block",
             marginRight: "10px",
           }}
         >
@@ -160,6 +164,7 @@ const mapStateToProps = (state) => {
     rating: state.movies.rating,
     genre: state.movies.genre,
     isAuthenticated: state.auth.isAuthenticated,
+    movies: state.movies.Movies,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);

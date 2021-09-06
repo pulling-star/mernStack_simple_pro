@@ -16,12 +16,12 @@ const Home = () => {
         </h2>
         <RatingMovies choise="rating" />
       </div>
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "70px" }}>
         <h2>latest movies </h2>
         <LatestMovies choise="year" />
       </div>
 
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "70px" }}>
         <h2>Some Action movies </h2>
         <ActionMovies choise="action" />
       </div>

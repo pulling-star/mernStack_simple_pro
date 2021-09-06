@@ -1,7 +1,7 @@
 import { updateObject } from "../utility";
 
 import * as actionTypes from "../actions/actionTypes";
-const m = localStorage.getItem("movies");
+
 const initialState = {
   moviesQuickSearch: [],
   searchTerm: "",
@@ -11,7 +11,7 @@ const initialState = {
   releaseYear: "All",
   orderedBy: "Latest",
 
-  Movies: JSON.parse(m),
+  Movies: [],
   LatestMovies: [],
   RatingMovies: [],
   ActionMovies: [],
@@ -29,7 +29,7 @@ const getAMovie = (state, action) => {
 };
 const setMov = (state, action) => {
   console.log(action.Movies);
-  localStorage.setItem("movies", JSON.stringify(action.Movies));
+
   return updateObject(state, {
     Movies: action.Movies,
     Mlength: action.Mlength,
@@ -80,7 +80,6 @@ const reducer = (state = initialState, action) => {
         err: action.msg,
       };
     case actionTypes.LOGOUT:
-      localStorage.removeItem("movies");
       return {
         ...state,
         loading: false,

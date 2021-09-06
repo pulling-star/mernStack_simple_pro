@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function InputField({ onChange, onfocusout, onfocusin }) {
   return (
     <div className="InputField">
-      <FontAwesomeIcon icon={faSearch} />
+      <FontAwesomeIcon style={{ display: "inline-block" }} icon={faSearch} />
       <input
+        style={{ display: "inline-block" }}
         type="search"
         placeholder="Quick search"
         name="quickSearch"
