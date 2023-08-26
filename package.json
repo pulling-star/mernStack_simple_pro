@@ -5,12 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node server/index",
-    "server": "nodemon server",
-    "client": "npm start --prefix ../client",
-    "dev": "concurrently \"npm run server \"  \"npm run client\"",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
-  },
+    "install-server": "cd server && npm install",
+    "start-server": "cd server && node index.js",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start-client": "cd client && npm run start"},
   "author": "",
   "license": "ISC",
   "dependencies": {
