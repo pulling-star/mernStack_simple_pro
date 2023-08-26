@@ -15,8 +15,8 @@ function Profile({
   return (
     <div className="Profile">
       <div className="profileItems">
-        <div style={{ borderRight: "1px solid #00a7c9", paddingTop: "30px" }}>
-          <img src={avatar} alt="" className="round-img" />
+        <div style={{  paddingTop: "30px" }}>
+          {/* <img src={avatar} alt="" className="round-img" /> */}
           <h2>{name}</h2>
           <h3>{email}</h3>
         </div>

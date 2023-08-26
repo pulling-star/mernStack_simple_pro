@@ -1,7 +1,10 @@
-import React from "react";
+import { faStar, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { addToFavorite } from "../store/actions/auth";
 
-function FavoriteItem({ id, movie, loading }) {
+function FavoriteItem({ user, id, movie, loading }) {
   console.log(movie);
 
   // useEffect(() => {
@@ -14,7 +17,9 @@ function FavoriteItem({ id, movie, loading }) {
         padding: "20px",
         display: "grid",
         gridTemplateColumns: "1fr 2fr",
-        borderBottom: "1px solid #00a7c9",
+        borderTop: "1px solid #919191",
+
+
       }}
     >
       <div
@@ -24,7 +29,7 @@ function FavoriteItem({ id, movie, loading }) {
         }}
       >
         <img
-          src={movie.posterurl}
+          src={movie.Poster}
           alt=""
           width="150px"
           height="150px"
@@ -35,26 +40,22 @@ function FavoriteItem({ id, movie, loading }) {
           }}
         />
       </div>
-      <div style={{ display: "inline-block", paddingTop: "50px" }}>
-        <h3 style={{ fontFamily: "cursive" }}>{movie.title}</h3>
-        <h3 style={{ fontFamily: "cursive" }}>
+      <div className="favInfo">
+        <h3 >Title: {movie.Title}</h3>
+        <h3 >
           imdbRating: {movie.imdbRating}
         </h3>
+        
       </div>
     </div>
   );
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onGetMovie: (id) => {
-//       dispatch(getMovie(id));
-//     },
-//   };
-// };
+
 const mapStateToProps = (state) => {
   return {
     loading: state.movies.loading,
+    user: state.auth.user,
   };
 };
 export default connect(mapStateToProps)(FavoriteItem);

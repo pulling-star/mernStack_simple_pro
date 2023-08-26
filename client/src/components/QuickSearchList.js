@@ -17,9 +17,9 @@ function QuickSearchList({ moviesQuickSearch, onGetAMovie }) {
           }}
         >
           <QuickSearchItem
-            name={m.originalTitle}
-            img={m.posterurl}
-            year={m.year}
+            name={m.Title}
+            img={m.Poster}
+            year={m.Year}
           />
         </li>
       ))

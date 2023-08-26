@@ -81,24 +81,26 @@ export const getMovies = (
   page_no,
   HomeMovies
 ) => {
+  console.log(searchTerm, orderedBy, releaseYear, rating, genre );
   return (dispatch) => {
-    let queryParams;
+    let queryParams="";
 
     if (searchTerm !== "") {
-      queryParams = "title/" + searchTerm;
-    } else if (rating === "All" && genre === "All" && releaseYear === "All") {
-      queryParams = "orderedBy/" + orderedBy + "/" + page_no;
+      queryParams = "title/" + searchTerm +"/";
+    } 
+     if (rating === "All"  && genre === "All" && releaseYear === "All") {
+      queryParams+= "orderedBy/" + orderedBy + "/" + page_no;
     } else if (rating === "All" && releaseYear === "All") {
-      queryParams =
+      queryParams+=
         "genre/" + genre + "/orderedBy/" + orderedBy + "/" + page_no;
     } else if (genre === "All" && releaseYear === "All") {
-      queryParams =
+      queryParams +=
         "rating/" + rating + "/orderedBy/" + orderedBy + "/" + page_no;
     } else if (genre === "All" && rating === "All") {
-      queryParams =
+      queryParams +=
         "year/" + releaseYear + "/orderedBy/" + orderedBy + "/" + page_no;
     } else if (genre === "All") {
-      queryParams =
+      queryParams +=
         "rating/" +
         rating +
         "/year/" +
@@ -108,7 +110,7 @@ export const getMovies = (
         "/" +
         page_no;
     } else if (rating === "All") {
-      queryParams =
+      queryParams +=
         "genre/" +
         genre +
         "/year/" +
@@ -118,7 +120,7 @@ export const getMovies = (
         "/" +
         page_no;
     } else if (releaseYear === "All") {
-      queryParams =
+      queryParams +=
         "genre/" +
         genre +
         "/rating/" +
@@ -128,7 +130,7 @@ export const getMovies = (
         "/" +
         page_no;
     } else {
-      queryParams =
+      queryParams +=
         "genre/" +
         genre +
         "/rating/" +
@@ -150,23 +152,48 @@ export const getMovies = (
       page_no,
     };
 
+    // axios
+    //   .get("/api/movies/" + queryParams)
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (HomeMovies) {
+    //       if (orderedBy === "rating") {
+    //         dispatch(setRatingMovies(res.data, searchReqs));
+    //       }
+    //       if (orderedBy === "year") {
+    //         dispatch(setLatestMovies(res.data, searchReqs));
+    //       }
+    //       if (genre === "Action") {
+    //         dispatch(setActionMovies(res.data, searchReqs));
+    //       }
+    //     } else {
+    //       dispatch(setMovies(res.data, searchReqs));
+    //     }
+    //   })
     axios
-      .get("/api/movies/" + queryParams)
-      .then((res) => {
-        if (HomeMovies) {
-          if (orderedBy === "rating") {
-            dispatch(setRatingMovies(res.data, searchReqs));
-          }
-          if (orderedBy === "year") {
-            dispatch(setLatestMovies(res.data, searchReqs));
-          }
-          if (genre === "Action") {
-            dispatch(setActionMovies(res.data, searchReqs));
-          }
-        } else {
-          dispatch(setMovies(res.data, searchReqs));
+    .post("/api/movies/" ,
+    {
+      searchTerm, orderedBy, releaseYear:releaseYear!=="All"?releaseYear:undefined,
+       rating:rating!=="All"?rating:undefined, 
+       genre:genre!=="All"?genre:"",
+       page_no
+    })
+    .then((res) => {
+      console.log(res);
+      if (HomeMovies) {
+        if (orderedBy === "Rating") {
+          dispatch(setRatingMovies(res.data, searchReqs));
         }
-      })
+        if (orderedBy === "Year") {
+          dispatch(setLatestMovies(res.data, searchReqs));
+        }
+        if (genre === "Action") {
+          dispatch(setActionMovies(res.data, searchReqs));
+        }
+      } else {
+        dispatch(setMovies(res.data, searchReqs));
+      }
+    })
       .catch((err) => {
         console.log(err);
         dispatch(fetchMoviesFailed());

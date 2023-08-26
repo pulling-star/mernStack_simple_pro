@@ -23,11 +23,11 @@ const RatingMovies = ({
             ? RatingMovies.slice(0, 5).map((mov, index) => (
                 <ItemShow
                   key={mov._id}
-                  imgSrc={mov.posterurl}
+                  imgSrc={mov.Poster}
                   rating={mov.imdbRating}
-                  genres={mov.genres}
-                  title={mov.originalTitle ? mov.originalTitle : mov.title}
-                  year={mov.year}
+                  genres={mov.Genre}
+                  title={mov.Title}
+                  year={mov.Year}
                   movie={mov}
                 />
               ))

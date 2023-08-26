@@ -5,20 +5,24 @@ const MovieSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
   },
 
-  title: {
+  Title: {
     type: String,
     required: true,
   },
-  year: {
+  Year: {
     type: String,
     required: true,
   },
-  genres: {
-    type: Array,
+  Genre: {
+    type: String,
     required: true,
   },
-  ratings: Array,
-  poster: String,
+  Language: {
+    type: String,
+    required: true,
+  },
+  // ratings: Array,
+  // poster: String,
   contentRating: String,
   duration: String,
   release_date: {
@@ -29,18 +33,18 @@ const MovieSchema = new mongoose.Schema({
   originalTitle: {
     type: String,
   },
-  storyline: {
+  Plot: {
     type: String,
     required: true,
   },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
-  actors: { type: Array, required: true },
+  Actors: { type: String, required: true },
   imdbRating: Number,
-  posterurl: {
+  Poster: {
     type: String,
     required: true,
   },
 });
-const Movie = mongoose.model("Movie", MovieSchema);
+const   Movie = mongoose.model("Film", MovieSchema);
 // Movie will be automatically converted into pluralized value ('Movies' or 'movies)
 export default Movie;

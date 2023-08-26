@@ -8,20 +8,20 @@ const router = express.Router();
 const setSortObject = (orderedBy) => {
   let sortObject;
   switch (orderedBy) {
-    case "latest":
-      sortObject = { year: -1 };
+    case "Latest":
+      sortObject = { Year: -1 };
       break;
-    case "oldest":
-      sortObject = { year: 1 };
+    case "Oldest":
+      sortObject = { Year: 1 };
       break;
-    case "alphabetical":
-      sortObject = { title: 1 };
+    case "Alphabetical":
+      sortObject = { Title: 1 };
       break;
-    case "rating":
+    case "Rating":
       sortObject = { imdbRating: -1 };
       break;
     default:
-      sortObject = { year: -1 };
+      sortObject = { Year: -1 };
       break;
   }
   return sortObject;
@@ -55,7 +55,7 @@ router.get("/substring/:substring", async (req, res) => {
   try {
     const pattern = req.params.substring;
     let movies = await Movie.find({
-      originalTitle: {
+      Title: {
         $regex: pattern,
         $options: "i",
       },
@@ -94,14 +94,74 @@ router.get("/favorites/:movies", async (req, res) => {
   }
 });
 
+router.post("", async (req, res) => {
+  try {
+   
+    let {searchTerm, orderedBy, releaseYear, rating, genre,page_no}= req.body;
+  
+    const sortObject = setSortObject(orderedBy);
+    const Mlength = await Movie.find({
+      $and: [
+        releaseYear?{
+          $and: [
+            { Year: { $gte: parseInt(releaseYear.split("-")[0]) } },
+            { Year: { $lte: parseInt(releaseYear.split("-")[1]) } },
+          ],
+        }:{Year:{$exists: true}},
+       rating? {
+          imdbRating: { $gte: rating },
+        }:{imdbRating:{$exists: true}},
+        {
+          Title: {$regex :  new RegExp(searchTerm,"i")} 
+        },
+       
+        {
+          Genre: {$regex : genre},
+        },
+      ],
+    }).countDocuments();
+
+    let movies = await Movie.find({
+      $and: [
+       releaseYear? {
+          $and: [
+            { Year:  { $gte: parseInt(releaseYear.split("-")[0]) } },
+            { Year: { $lte: parseInt(releaseYear.split("-")[1]) } },
+          ],
+        }:{Year:{$exists: true}},
+        rating?{ imdbRating: { $gte: rating } }:{imdbRating:{$exists: true}},
+        { Title: {$regex :  new RegExp(searchTerm,"i")} },
+       { Genre: {$regex : genre},}
+      ],
+    })
+      .sort(sortObject)
+      .skip((parseInt(page_no) - 1) * 20)
+      .limit(20);
+
+    if (movies.length > 0) {
+      res.json({ msg: "", movies, Mlength });
+    } else {
+      res.json({ msg: "There is no movies with this title", Mlength: 0 });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
 //  @route  Get api/movies/title/:title
 //  @desc   Get all movies that have specific title
 //  @access Private
-router.get("/title/:title", async (req, res) => {
+router.get("/title/:title/orderedBy/:orderedBy/:page_no", async (req, res) => {
   try {
+    const orderedBy = req.params.orderedBy;
+
+    const sortObject = setSortObject(orderedBy);
     let movies = await Movie.find({
-      $or: [{ title: req.params.title }, { originalTitle: req.params.title }],
-    });
+        Title: {$regex :  new RegExp(req.params.title,"i")} 
+    })  .sort(sortObject)
+    .skip((parseInt(req.params.page_no) - 1) * 20)
+    .limit(20);
     if (movies.length > 0) {
       res.json({ msg: "", movies, Mlength: 1 });
     } else {
@@ -113,6 +173,7 @@ router.get("/title/:title", async (req, res) => {
   }
 });
 
+
 //  @route  Get api/movies/:genre
 //  @desc   Get all movies that have specific genre
 //  @access Private
@@ -121,9 +182,9 @@ router.get("/genre/:genre/orderedBy/:orderedBy/:page_no", async (req, res) => {
     const orderedBy = req.params.orderedBy;
     const sortObject = setSortObject(orderedBy);
     const Mlength = await Movie.find({
-      genres: req.params.genre,
+      Genre: {$regex : req.params.genre},
     }).countDocuments();
-    const movies = await Movie.find({ genres: req.params.genre })
+    const movies = await Movie.find({ Genre: {$regex : req.params.genre}})
       .sort(sortObject)
       .skip((parseInt(req.params.page_no) - 1) * 20)
       .limit(20);
@@ -142,13 +203,14 @@ router.get(
   "/rating/:rating/orderedBy/:orderedBy/:page_no",
   async (req, res) => {
     try {
+      console.log(req.params);
       const orderedBy = req.params.orderedBy;
       const sortObject = setSortObject(orderedBy);
       const Mlength = await Movie.find({
-        imdbRating: { $gte: req.params.rating },
+        imdbRating: { $gte: +req.params.rating },
       }).countDocuments();
       let movies = await Movie.find({
-        imdbRating: { $gte: req.params.rating },
+        imdbRating: { $gte: +req.params.rating },
       })
         .sort(sortObject)
         .skip((parseInt(req.params.page_no) - 1) * 20)
@@ -174,15 +236,15 @@ router.get("/year/:year/orderedBy/:orderedBy/:page_no", async (req, res) => {
 
     const Mlength = await Movie.find({
       $and: [
-        { year: { $gte: parseInt(years[0]) } },
-        { year: { $lte: parseInt(years[1]) } },
+        { Year: { $gte: parseInt(years[0]) } },
+        { Year: { $lte: parseInt(years[1]) } },
       ],
     }).countDocuments();
 
     let movies = await Movie.find({
       $and: [
-        { year: { $gte: parseInt(years[0]) } },
-        { year: { $lte: parseInt(years[1]) } },
+        { Year: { $gte: parseInt(years[0]) } },
+        { Year: { $lte: parseInt(years[1]) } },
       ],
     })
       .sort(sortObject)
@@ -197,7 +259,7 @@ router.get("/year/:year/orderedBy/:orderedBy/:page_no", async (req, res) => {
 });
 
 router.get(
-  "/rating/:rating/year/:year/orderedBy/:orderedBy/:page_no",
+  "/title/:title/rating/:rating/year/:year/orderedBy/:orderedBy/:page_no",
   async (req, res) => {
     try {
       const orderedBy = req.params.orderedBy;
@@ -209,13 +271,16 @@ router.get(
         $and: [
           {
             $and: [
-              { year: { $gte: parseInt(years[0]) } },
-              { year: { $lte: parseInt(years[1]) } },
+              { Year: { $gte: parseInt(years[0]) } },
+              { Year: { $lte: parseInt(years[1]) } },
             ],
           },
           {
             imdbRating: { $gte: req.params.rating },
           },
+          {
+            Title: {$regex :  new RegExp(req.params.title,"i")} 
+          }
         ],
       }).countDocuments();
 
@@ -223,11 +288,12 @@ router.get(
         $and: [
           {
             $and: [
-              { year: { $gte: parseInt(years[0]) } },
-              { year: { $lte: parseInt(years[1]) } },
+              { Year: { $gte: parseInt(years[0]) } },
+              { Year: { $lte: parseInt(years[1]) } },
             ],
           },
           { imdbRating: { $gte: req.params.rating } },
+          { Title: {$regex :  new RegExp(req.params.title,"i")} }
         ],
       })
         .sort(sortObject)
@@ -243,7 +309,7 @@ router.get(
 );
 
 router.get(
-  "/genre/:genre/year/:year/orderedBy/:orderedBy/:page_no",
+  "/title/:title/genre/:genre/year/:year/orderedBy/:orderedBy/:page_no",
   async (req, res) => {
     try {
       const orderedBy = req.params.orderedBy;
@@ -255,13 +321,14 @@ router.get(
         $and: [
           {
             $and: [
-              { year: { $gte: parseInt(years[0]) } },
-              { year: { $lte: parseInt(years[1]) } },
+              { Year: { $gte: parseInt(years[0]) } },
+              { Year: { $lte: parseInt(years[1]) } },
             ],
           },
           {
-            genres: req.params.genre,
+            Genre:{$regex : req.params.genre},
           },
+          { Title: {$regex :  new RegExp(req.params.title,"i")} }
         ],
       }).countDocuments();
 
@@ -269,13 +336,14 @@ router.get(
         $and: [
           {
             $and: [
-              { year: { $gte: parseInt(years[0]) } },
-              { year: { $lte: parseInt(years[1]) } },
+              { Year: { $gte: parseInt(years[0]) } },
+              { Year: { $lte: parseInt(years[1]) } },
             ],
           },
           {
-            genres: req.params.genre,
+            Genre:{$regex : req.params.genre},
           },
+          { Title: {$regex :  new RegExp(req.params.title,"i")} }
         ],
       })
         .sort(sortObject)
@@ -291,7 +359,7 @@ router.get(
 );
 
 router.get(
-  "/genre/:genre/rating/:rating/orderedBy/:orderedBy/:page_no",
+  "/title/:title/genre/:genre/rating/:rating/orderedBy/:orderedBy/:page_no",
   async (req, res) => {
     try {
       const orderedBy = req.params.orderedBy;
@@ -303,8 +371,9 @@ router.get(
             imdbRating: { $gte: req.params.rating },
           },
           {
-            genres: req.params.genre,
+            Genre: {$regex : req.params.genre},
           },
+          {  Title: {$regex :  new RegExp(req.params.title,"i")} }
         ],
       }).countDocuments();
 
@@ -314,8 +383,9 @@ router.get(
             imdbRating: { $gte: req.params.rating },
           },
           {
-            genres: req.params.genre,
+            Genre: {$regex : req.params.genre},
           },
+          { Title: {$regex :  new RegExp(req.params.title,"i")} }
         ],
       })
         .sort(sortObject)
@@ -330,7 +400,7 @@ router.get(
   }
 );
 router.get(
-  "/genre/:genre/rating/:rating/year/:year/orderedBy/:orderedBy/:page_no",
+  "/title/:title/genre/:genre/rating/:rating/year/:year/orderedBy/:orderedBy/:page_no",
   async (req, res) => {
     try {
       const orderedBy = req.params.orderedBy;
@@ -341,16 +411,19 @@ router.get(
         $and: [
           {
             $and: [
-              { year: { $gte: parseInt(years[0]) } },
-              { year: { $lte: parseInt(years[1]) } },
+              { Year: { $gte: parseInt(years[0]) } },
+              { Year: { $lte: parseInt(years[1]) } },
             ],
           },
           {
             imdbRating: { $gte: req.params.rating },
           },
           {
-            genres: req.params.genre,
+            Genre: {$regex : req.params.genre}
           },
+          {
+            Title: {$regex :  new RegExp(req.params.title,"i")} 
+          }
         ],
       }).countDocuments();
 
@@ -358,16 +431,19 @@ router.get(
         $and: [
           {
             $and: [
-              { year: { $gte: parseInt(years[0]) } },
-              { year: { $lte: parseInt(years[1]) } },
+              { Year: { $gte: parseInt(years[0]) } },
+              { Year: { $lte: parseInt(years[1]) } },
             ],
           },
           {
             imdbRating: { $gte: req.params.rating },
           },
           {
-            genres: req.params.genre,
+            Genre: {$regex : req.params.genre},
           },
+          {
+            Title: {$regex :  new RegExp(req.params.title,"i")} 
+          }
         ],
       })
         .sort(sortObject)

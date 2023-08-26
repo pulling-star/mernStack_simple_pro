@@ -22,13 +22,13 @@ const ActionMovies = ({
           {ActionMovies
             ? ActionMovies.slice(0, 5).map((mov, index) => (
                 <ItemShow
-                  key={mov._id}
-                  imgSrc={mov.posterurl}
-                  rating={mov.imdbRating}
-                  genres={mov.genres}
-                  title={mov.originalTitle ? mov.originalTitle : mov.title}
-                  year={mov.year}
-                  movie={mov}
+                key={mov._id}
+                imgSrc={mov.Poster}
+                rating={mov.imdbRating}
+                genres={mov.Genre}
+                title={mov.Title}
+                year={mov.Year}
+                movie={mov}
                 />
               ))
             : null}

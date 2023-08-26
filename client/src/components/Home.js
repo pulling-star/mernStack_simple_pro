@@ -14,16 +14,16 @@ const Home = () => {
           Some heighest rating movies{" "}
           <FontAwesomeIcon style={{ color: "#6ac045" }} icon={faStar} />
         </h2>
-        <RatingMovies choise="rating" />
+        <RatingMovies choise="Rating" />
       </div>
       <div style={{ marginTop: "70px" }}>
-        <h2>latest movies </h2>
-        <LatestMovies choise="year" />
+        <h2>latest movies </h2>   
+        <LatestMovies choise="Year" />
       </div>
 
       <div style={{ marginTop: "70px" }}>
         <h2>Some Action movies </h2>
-        <ActionMovies choise="action" />
+        <ActionMovies choise="Action" />
       </div>
     </div>
   );

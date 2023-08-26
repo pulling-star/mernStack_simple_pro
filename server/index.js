@@ -11,7 +11,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 const CONNECTIONURL =
-  "mongodb+srv://ahmedreda:721996@cluster0.eymbv.mongodb.net/recommendation_database?retryWrites=true&w=majority";
+  "mongodb+srv://ahmedreda:721996@cluster0.9xx4ecc.mongodb.net/recommendation_movies?retryWrites=true&w=majority";
 
 app.use("/api/movies", movies);
 app.use("/api/users", users);

@@ -59,22 +59,66 @@ function ItemDetail({
     <div
       style={{
         background: "#1d1d1d",
-        top: "150px",
+        top: "50px",
         position: "relative",
       }}
     >
+      <div className="breadcrumb" >{"Home / Movies /  "}<span className="active">{" "}{movie.Title}</span></div>
       <div className="ItemDetailView">
         <div>
-          <img alt="" width="260" height="390" src={movie.posterurl} />
+          <img alt="" width="220" height="320" src={movie.Poster} />
           {favoriteElement}
         </div>
-        <div style={{ color: "white", paddingLeft: "120px" }}>
-          <div style={{ marginBottom: "50px" }}>
-            <h1>{movie.originalTitle || movie.title}</h1>
-            <h2>{movie.year}</h2>
-            <h2>{movie.genres[0]}</h2>
-          </div>
+        <div style={{ color: "white",textAlign:"left",marginLeft:"10px"}}>
+          <div >
+            <h3>{movie.Title}</h3>
+            <div>
+        <div style={{ color: "white",fontSize:"12px"}}>
+          <p style={{ color: "#919191" }}>{movie.Plot}</p>
+        </div>
+        {/* <div style={{ marginLeft: "100px" }}>
+          <h2 style={{ color: "white" }}>cast</h2>
           <div>
+            {movie.Actors.split(',').map((a, index) => (
+              <p
+                key={index}
+                style={{
+                  color: "#919191",
+                  overflow: "hidden",
+                  borderBottom: "1px solid #2f2f2f",
+                  padding: " 10px 0",
+                }}
+              >
+                {a}
+              </p>
+            ))}
+          </div>
+        </div> */}
+      </div>
+      <div className="info">
+      <div >
+      <p>Genre: <span>{movie.Genre}</span></p>
+      <p>Director: <span>{movie.Director}</span></p>
+      <p>Actors: <span>{movie.Actors}</span></p>
+      <p>Country: <span>{movie.Country}</span></p>
+      </div>
+         <div >
+      <p>Duration: <span>{movie.Runtime}</span></p>
+      <p>Release: <span>{movie.Year}</span></p>
+      <p>Language: <span>{movie.Language}</span></p>
+      <p>Awards: <span>{movie.Awards}</span></p>
+      </div>
+      </div>
+        
+          
+       
+            {/* <h3 style={{ marginRight: "20px" }}>
+              Imdb:{movie.imdbRating}
+            <FontAwesomeIcon icon={faStar} className="icon-star" />
+            </h3> */}
+          
+          </div>
+          {/* <div>
             <h2>
               Likes: {movie.likes.length}
               <FontAwesomeIcon
@@ -83,15 +127,15 @@ function ItemDetail({
                 className="icon-heart"
               />
             </h2>
-          </div>
-          <div style={{ display: "flex" }}>
-            <h2 style={{ marginRight: "20px" }}>Imdb</h2>
-            <h2>{movie.imdbRating}</h2>
-            <FontAwesomeIcon icon={faStar} className="icon-star" />
-          </div>
+          </div> */}
+          
         </div>
-        <div>
-          <p style={{ color: "white", padding: "10px" }}>similar movies</p>
+       
+      </div>
+      <br />
+      <div className="container_similar">
+      <div class="similar_tag">
+<span>You May Also Like</span></div>
           <div className="similarMovies">
             <a
               href="https://yts.mx/movies/the-darkness-2016"
@@ -139,32 +183,7 @@ function ItemDetail({
             </a>
           </div>
         </div>
-      </div>
-
-      <div style={{ padding: "20px 200px", display: "flex" }}>
-        <div style={{ color: "white", width: "60%" }}>
-          <h2>story line</h2>
-          <p style={{ color: "#919191" }}>{movie.storyline}</p>
-        </div>
-        <div style={{ marginLeft: "100px" }}>
-          <h2 style={{ color: "white" }}>cast</h2>
-          <div>
-            {movie.actors.map((a, index) => (
-              <p
-                key={index}
-                style={{
-                  color: "#919191",
-                  overflow: "hidden",
-                  borderBottom: "1px solid #2f2f2f",
-                  padding: " 10px 0",
-                }}
-              >
-                {a}
-              </p>
-            ))}
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 const SearchArea = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
+
   const [rating, setRating] = useState("All");
   const [genre, setGenre] = useState("All");
   const [releaseYear, setReleaseYear] = useState("All");
@@ -32,6 +33,11 @@ const SearchArea = (props) => {
         );
       }
     : () => history.push("/login");
+    const handleKeyDown = (e) =>{
+      if (e.key === 'Enter') {
+        searchForMovies()
+      }
+    }
   return (
     <div
       style={{
@@ -50,6 +56,8 @@ const SearchArea = (props) => {
             type="search"
             style={{ width: "80%" }}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
+            
           />
           <div style={{ display: "inline-block" }}>
             <button className="searchButton" onClick={searchForMovies}>
@@ -62,7 +70,7 @@ const SearchArea = (props) => {
         >
           <p style={{ float: "left !important" }}>Rating:</p>
           <select type="search" onChange={(e) => setRating(e.target.value)}>
-            <option value="0">All</option>
+            <option value="All">All</option>
             <option value="9">9+</option>
             <option value="8">8+</option>
             <option value="7">7+</option>
@@ -136,11 +144,11 @@ const SearchArea = (props) => {
             name="order_by"
             onChange={(e) => setOrderedBy(e.target.value)}
           >
-            <option value="latest">Latest</option>
-            <option value="oldest">Oldest</option>
+            <option value="Latest">Latest</option>
+            <option value="Oldest">Oldest</option>
             <option value="year">Year</option>
-            <option value="rating">Rating</option>
-            <option value="alphabetical">Alphabetical</option>
+            <option value="Rating">Rating</option>
+            <option value="Alphabetical">Alphabetical</option>
           </select>
         </div>
       </div>

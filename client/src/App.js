@@ -12,7 +12,7 @@ import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Spinner from "./components/Spinner";
 import ShowSection from "./components/ShowSection";
-import ItemDetail from "./components/ItemDetail";
+import ItemDetail from "./components/ItemDetail.jsx";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Login from "./components/LogIn";

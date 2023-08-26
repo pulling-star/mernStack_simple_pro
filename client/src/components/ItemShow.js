@@ -24,8 +24,8 @@ const ItemShow = ({ imgSrc, rating, genres, title, year, movie }) => {
           <figcaption>
             <FontAwesomeIcon className="icon-star" icon={faStar} />
             <h4>{rating} / 10</h4>
-            <h4>{genres[0]}</h4>
-            <h4>{genres[1]}</h4>
+            <h4>{genres}</h4>
+            {/* <h4>{genres[1]}</h4> */}
             <span className="button-green">View Details</span>
           </figcaption>
         </figure>
